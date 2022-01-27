@@ -19,10 +19,10 @@ If[MemberQ[$Packages,"SSC`"],
 	(* Loading the file if its not already loaded*)
 	$SSCDirectory= DirectoryName[$InputFileName, 2];
 	(* Loading *)
-	Print["Loading QFTools`..."];
+	Print["Loading SSC`..."];
 	(* Load, but abort if there is a message *)
 	Check[
-		Get@ FileNameJoin@ {$SSC, "SSC.m"},
+		Get@ FileNameJoin@ {$SSCDirectory, "SSC.m"},
 		Print@Style["Loading failed!", RGBColor[.6, .0706, 0.1373]];
 		Abort[]
 	];

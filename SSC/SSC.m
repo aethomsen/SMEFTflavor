@@ -21,6 +21,10 @@ PackageScope["OptionsCheck"]
 $SubscriptSize::usage= "Sets the global subscriptsize for QFTools formatting."
 
 
+(* ::Section:: *)
+(*Tools*)
+
+
 (* ::Subsection:: *)
 (*Option checker*)
 

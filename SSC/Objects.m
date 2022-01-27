@@ -25,7 +25,7 @@ PackageScope["ComplexRepQ"]
 
 
 (* ::Section:: *)
-(*OpForm*)
+(*Objects*)
 
 
 (* ::Subsection:: *)

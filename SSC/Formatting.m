@@ -41,8 +41,15 @@ OpForm/: Print[A___, OpForm[arg_], B___] := Print[A, Format[arg, OpForm], B]
 OpForm/: MakeBoxes[a:(_Symbol |_Interger| _String), OpForm]:= FormBox[RowBox@ {ToString[a]},StandardForm];
 
 
-Format[Bar@y_, OpForm]:= OverBar@ y;
-Format[Index[_, d_], OpForm]:=d;
+Unprotect@String;
+Format[Bar@ f_String@ inds__Index, OpForm]:= UpDownIndices[OverBar@ f, inds];
+Format[f_String@ inds__Index, OpForm]:= UpDownIndices[f, inds];
+(*OpForm/: MakeBoxes[f_String[inds__Index], OpForm]:= RowBox@ {UpDownIndices[f, inds]};*)
+Protect@ String;
+
+
+Format[Bar@ y_, OpForm]:= OverBar@ y;
+Format[Index[_, d_], OpForm]:= d;
 Format[Operator@y__, OpForm]:= "Operator"@ FormatOperatorIndices@ Operator@ y;
 
 

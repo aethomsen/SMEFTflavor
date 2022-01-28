@@ -25,9 +25,15 @@ PackageExport["Spur"]
 
 PackageExport["fund"]
 PackageExport["adj"]
+PackageExport["SU"]
+
+
+PackageExport["\[CurlyEpsilon]"]
+PackageExport["T"]
 
 
 PackageScope["ComplexRepQ"]
+PackageScope["Charge"]
 
 
 (* ::Section:: *)
@@ -73,6 +79,13 @@ ComplexRepQ[rep_, flavorSym_]:= GroupRepComplexQ[
 Bar@ gr_@ adj:= gr@ adj;
 
 
+(* ::Subsubsection:: *)
+(*Clebsch-Gordan coefficients*)
+
+
+Protect[\[CurlyEpsilon], T]
+
+
 (* ::Subsection:: *)
 (*Spur *)
 
@@ -87,3 +100,16 @@ Bar@ x_Spur:= Bar/@ x;
 
 SetAttributes[CGs, Orderless];
 Bar@ x_CGs:= Bar/@ x;
+
+
+(* ::Subsection:: *)
+(*Charge*)
+
+
+(* ::Text:: *)
+(*Gives the U(1) charge(s) of an object based on a flavor symmetry *)
+
+
+Charge[expr_, sym_]:= expr/. x_[__Index]:> x/. $flavorSymmetries[sym, Charges]/. 
+	{\[CurlyEpsilon]-> 0, T-> 0}/. Bar@ x_-> -x;
+Charge[sym_]@ expr_:= Charge[expr, sym];

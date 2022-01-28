@@ -18,7 +18,13 @@ Package["SSC`"]
 PackageExport["Bar"]
 PackageExport["CGs"]
 PackageExport["Index"]
+PackageExport["Operator"]
+PackageExport["PlusHc"]
 PackageExport["Spur"]
+
+
+PackageExport["fund"]
+PackageExport["adj"]
 
 
 PackageScope["ComplexRepQ"]

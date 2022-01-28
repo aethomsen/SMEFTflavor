@@ -27,11 +27,25 @@ PackageExport["leptonicOperators"]
 PackageExport["semiLeptonicOperators"]
 
 
+PackageExport["q"]
+PackageExport["u"]
+PackageExport["d"]
+PackageExport["l"]
+PackageExport["e"]
+
+
 PackageScope["$operatorClasses"]
 
 
 (* ::Section:: *)
 (*SMEFT operators *)
+
+
+(* ::Subsection:: *)
+(*Fields *)
+
+
+Protect[q, u, d, l, e];
 
 
 (* ::Subsection:: *)

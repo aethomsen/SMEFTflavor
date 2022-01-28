@@ -15,8 +15,15 @@ Package["SSC`"]
 (*Scoping & usage definitions*)
 
 
+PackageExport["BasisCount"]
 PackageExport["ConstructSinglets"]
+PackageExport["CountingTable"]
 PackageExport["OperatorBasis"]
+PackageExport["OperatorSpurionBasis"]
+
+
+PackageExport["SMEFToperators"]
+PackageExport["SpurionCount"]
 
 
 (* ::Section:: *)
@@ -246,7 +253,7 @@ SelfConjugateQ[SMEFTop_]@ op_:= SelfConjugateQ[op, SMEFTop];
 (*Determine operator identities *)
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Operator Patterns *)
 
 
@@ -310,7 +317,7 @@ OperatorExpansionPattern[id_, op_Operator]:= Module[{},
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Match operators to pattern*)
 
 
@@ -363,7 +370,7 @@ MakeNewOperatorPatterns[opList_List]:= Module[{identifiers, newRules, nextID, op
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Make identities *)
 
 
@@ -448,11 +455,15 @@ OperatorScore[op_Operator, flavorSym_]:=Module[{score},
 (*Determine operator basis *)
 
 
+(* ::Subsubsection::Closed:: *)
+(*Basis for a single Operator--Spurion combination*)
+
+
 (* ::Text:: *)
 (*Basis given Spurions and SMEFT operator*)
 
 
-OperatorBasis[SMEFTop_, flavorSym_, spurions_Spur]:= Module[{singlets, identities, selfConjugate},
+OperatorSpurionBasis[SMEFTop_, flavorSym_, spurions_Spur]:= Module[{singlets, identities, selfConjugate},
 	(*Find all singlet contractions of fields and spurions*)
 	singlets = ConstructSinglets[SMEFTop, flavorSym, spurions];
 	If[Length@ singlets === 0, Return@ {};];
@@ -466,3 +477,116 @@ OperatorBasis[SMEFTop_, flavorSym_, spurions_Spur]:= Module[{singlets, identitie
 	(*Remove operators, where a set of spurions form a singlet*)
 	DeleteCases[singlets, _?(ReducibleOperatorQ[flavorSym])]
 ]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Spurion combinations*)
+
+
+(* ::Text:: *)
+(*Determines all combination of spurions given flavor symmetry and counting order*)
+
+
+SpurionCombinations[flavorSym_, ord_Integer]:= Module[{spurCases, counting, spurions, n, noCCcases},
+	counting=Lookup[$flavorSymmetries[flavorSym], SpurionCounting, {}];
+	spurions= DeleteDuplicates@ Join[Keys@ counting, Bar/@ Keys@ counting];
+	spurCases= Join@@ Table[Tuples[spurions, n], {n, 0, ord}];
+	spurCases= Select[spurCases, Plus@@ (#/. Bar-> Identity/. counting) <= ord &];
+	(*All spurion cases satisfying the counting*)
+	spurCases= Spur@@@ spurCases //DeleteDuplicates;
+	(*Removing the complex conjugates*)
+	noCCcases= DeleteDuplicatesBy[(Sort@ {#, Bar@ #}&)/@ spurCases, Last][[;;, 1]];
+	{noCCcases, spurCases}
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Operator basis for the full symmetry*)
+
+
+(* ::Text:: *)
+(*Returns all operators of a symmetry for all SMEFT-Spurion combinations*)
+
+
+Options@ OperatorBasis= {
+		SpurionCount-> 3,
+		SMEFToperators-> All
+	};
+OperatorBasis[flavorSym_, OptionsPattern[]]:= Module[{spurionCombinations, smeftOps, 
+		smeftOp, spurs},
+	spurionCombinations= SpurionCombinations[flavorSym, OptionValue@ SpurionCount];
+	smeftOps= If[OptionValue@ SMEFToperators === All, 
+		Keys@ $smeftOperators, OptionValue@ SMEFToperators];
+	
+	Association@ Table[smeftOp->
+		DeleteCases[Merge[Table[<|(spur/. Bar-> Identity)->
+			OperatorSpurionBasis[smeftOp, flavorSym, spur]/. 
+			op_Operator? (Not@* SelfConjugateQ[smeftOp])-> PlusHc@ op|>,
+				{spur, spurionCombinations[[If[$smeftOperators[smeftOp, UniqueHc], 2, 1]]]}], Flatten], {}]
+	,{smeftOp, smeftOps}]
+]
+
+
+(* ::Subsubsection::Closed:: *)
+(*Basis count*)
+
+
+(* ::Text:: *)
+(*Returns the counting of the operators in the basis *)
+
+
+Options@ BasisCount= Join[Options@ OperatorBasis,{}];
+BasisCount[flavorSym_, opt:OptionsPattern[]]:= Module[{newOpts, basis, count},
+	newOpts= FilterRules[{opt}, Options@ OperatorBasis];
+	basis= OperatorBasis[flavorSym, Sequence@@ newOpts];
+	count= Map[{Length@ #, Count[#, _PlusHc]}&, basis, {2}];
+	(*Account for operator multiplicity*)
+	count= Association@ KeyValueMap[Rule[#1, Lookup[$smeftOperators@ #1, Multiplicity, 1] #2]&, count];
+	count@ Total= Merge[List@@ count, Total];
+	count
+]
+
+
+(* ::Subsection:: *)
+(*Tables *)
+
+
+(* ::Text:: *)
+(*Outputs counting table based on the basis  *)
+
+
+Options@ CountingTable= Join[Options@ BasisCount, {}];
+CountingTable[flavorSym_, opt:OptionsPattern[]]:= Module[{count, newOpts, spurions, firstRow, 
+		lastRow,table,classLabel, spur},
+	newOpts= FilterRules[{opt}, Options@ BasisCount];
+	count= BasisCount[flavorSym, Sequence@@ newOpts];
+	
+	(*Organize spurion columns*)
+	spurions= DeleteDuplicates@ Flatten[Keys/@ List@@ count];
+	spurions= SortBy[spurions, (Plus@@ #/. $flavorSymmetries[flavorSym, SpurionCounting]&)];
+	firstRow= {flavorSym, SpanFromLeft}~ Join~ spurions/. Spur:> "\[ScriptCapitalO]"@*Times;
+	
+	table= Flatten[Table[
+		classLabel= True;
+		Table[
+			Catch[
+				If[Length@ Lookup[count, smeftOp, <||>] === 0, Throw@ Nothing;];
+				Join[
+					{If[classLabel, classLabel= False; class, SpanFromAbove], smeftOp}
+					,	
+				Table[
+						Lookup[count@ smeftOp, spur, "\t"]/. List-> CountPairToString
+					, {spur, spurions}]
+				]
+			]
+		, {smeftOp, $operatorClasses@ class}]	
+	, {class, Keys@ $operatorClasses}],1];
+	
+	lastRow= Join[{"Total", SpanFromLeft}, Table[
+				Lookup[count@ Total, spur, "\t"]/. List-> CountPairToString
+			, {spur, spurions}] ];
+	
+	Grid[Join[{firstRow}, table, {lastRow}], Dividers-> {All, All}]
+	
+];
+CountPairToString[a_, b_]:= If[a === 0, "", ToString@ a]<> "\t"<> If[b === 0, "", ToString@ b];

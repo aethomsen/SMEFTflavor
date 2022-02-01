@@ -168,11 +168,12 @@ $leptonSymmetries= <|
 	|>,
 	"lep:U2diag"-> <|
 		Groups-> <|"U2l"-> SU@ 2|>,
-		Spurions-> {"\[CapitalDelta]l"},
-		Charges-> <|"l12"-> {1}, "l3"-> 0, "e12"-> {1}, "e3"-> 0, "\[CapitalDelta]l"-> 0|>,
-		Representations-> <|"l12"-> {"U2l"@ fund}, "e12"-> {"U2l"@ fund}, "\[CapitalDelta]l"-> {"U2l"@ adj}|>,
+		Spurions-> {"\[CapitalDelta]l", "Vl"},
+		Charges-> <|"l12"-> {1}, "l3"-> 0, "e12"-> {1}, "e3"-> 0, "\[CapitalDelta]l"-> 0, "Vl"-> {1}|>,
+		Representations-> <|"l12"-> {"U2l"@ fund}, "e12"-> {"U2l"@ fund}, 
+			"Vl"-> {"U2l"@ fund}, "\[CapitalDelta]l"-> {"U2l"@ adj}|>,
 		FieldSubstitutions-> <|"l"-> {"l12", "l3"}, "e"-> {"e12", "e3"}|>,
-		SpurionCounting-> <|"\[CapitalDelta]l"-> 2|>
+		SpurionCounting-> <|"Vl"-> 1, "\[CapitalDelta]l"-> 2|>
 	|>,
 	"lep:6U1"-> <|
 		Groups-> <||>,

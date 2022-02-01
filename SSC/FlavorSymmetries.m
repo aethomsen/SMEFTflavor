@@ -65,6 +65,17 @@ $quarkSymmetries= <|
 		FieldSubstitutions-> <|"q"-> {"q12", "q3"}, "u"->{"u12", "u3"}, "d"-> {"d"}|>,
 		SpurionCounting-> <|"Vq"-> 1, "Vb"-> 1, "\[CapitalDelta]u"-> 2, "yd"-> 2|>
 	|>,
+	"quark:3U2xU1"-> <|
+		Groups-> <|"U2q"-> SU@ 2, "U2u"-> SU@ 2, "U2d"-> SU@ 2|>,
+		Spurions-> {"Vq", "\[CapitalDelta]u", "\[CapitalDelta]d", "Xb"},
+		Charges-> <|"q12"-> {1, 0, 0, 0}, "u12"-> {0, 1, 0, 0}, "d12"-> {0, 0, 1, 0}, "q3"-> 0, "u3"-> 0, 
+			"d3"-> {0, 0, 0, 1}, "Vq"-> {1, 0, 0, 0}, "\[CapitalDelta]u"-> {1, -1, 0, 0}, "\[CapitalDelta]d"-> {1, 0, -1, 0},
+			"Xb"-> {0, 0, 0, -1}|>,
+		Representations-> <|"q12"-> {"U2q"@ fund}, "u12"-> {"U2u"@ fund}, "d12"-> {"U2d"@ fund},
+			"Vq"-> {"U2q"@ fund}, "\[CapitalDelta]u"-> {"U2q"@ fund, Bar@ "U2u"@ fund}, "\[CapitalDelta]d"-> {"U2q"@ fund, Bar@ "U2d"@ fund}|>,
+		FieldSubstitutions-> <|"q"-> {"q12", "q3"}, "u"-> {"u12", "u3"}, "d"->{"d12", "d3"}|>,
+		SpurionCounting-> <|"Vq"-> 1, "Xb"-> 1, "\[CapitalDelta]u"-> 2, "\[CapitalDelta]d"-> 2|>
+	|>,
 	"quark:3U2"-> <|
 		Groups-> <|"U2q"-> SU@ 2, "U2u"-> SU@ 2, "U2d"-> SU@ 2|>,
 		Spurions-> {"Vq", "\[CapitalDelta]u", "\[CapitalDelta]d"},

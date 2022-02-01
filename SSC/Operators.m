@@ -18,6 +18,7 @@ Package["SSC`"]
 PackageExport["BasisCount"]
 PackageExport["ConstructSinglets"]
 PackageExport["CountingTable"]
+PackageExport["O1Table"]
 PackageExport["OperatorBasis"]
 PackageExport["OperatorSpurionBasis"]
 
@@ -604,7 +605,7 @@ BasisCount[flavorSym_, opt:OptionsPattern[]]:= Module[{newOpts, basis, count},
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Tables *)
 
 
@@ -647,3 +648,21 @@ CountingTable[flavorSym_, opt:OptionsPattern[]]:= Module[{count, newOpts, spurio
 	
 ];
 CountPairToString[a_, b_]:= If[a === 0, "", ToString@ a]<> "\t"<> If[b === 0, "", ToString@ b];
+
+
+(* ::Text:: *)
+(*Counting table for O(1) operators in various symmetries*)
+
+
+O1Table[quarkSyms_List, lepSyms_List]:= Module[{firstRow, table},
+	firstRow= Prepend[lepSyms,""];
+	
+	table= Table[Prepend[
+			Table[
+				BasisCount[{qSym, lSym}, SpurionCount-> 0][Total, Spur[]] + {9, 6} /. List-> CountPairToString
+			, {lSym, lepSyms}],
+			qSym]
+		, {qSym, quarkSyms}];
+	
+	Grid[Prepend[table, firstRow], Dividers-> {All, All}]
+];

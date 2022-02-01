@@ -30,7 +30,7 @@ PackageExport["SpurionCount"]
 (*Determine operator basis *)
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Determine singlet operators  *)
 
 
@@ -82,7 +82,10 @@ OperatorSplit[SMEFTop_, flavorSym_]:= Module[{field, fieldSubs, fields},
 dummyInds= Table[Symbol["$d"<> ToString@ n], {n, 100}];
 
 
-DetermineContractions[op_Operator, flavorSym_]:= Module[{inds, addedCGs, contractions, 
+DetermineContractions::adjs= "The current implementation supports no more than two adjoint-indexed spurions of any one group.";
+
+
+DetermineContractions[op_Operator, flavorSym_]:= Module[{inds, addedCGs, cgChoices, contractions, 
 		newOp, opSeed, objSubs, n=1, cg, representations, groups, gr, indSet},
 	representations= Lookup[$flavorSymmetries@ flavorSym, Representations, <||>];
 	groups=Lookup[$flavorSymmetries@ flavorSym, Groups, <||>];
@@ -111,8 +114,27 @@ DetermineContractions[op_Operator, flavorSym_]:= Module[{inds, addedCGs, contrac
 	opSeed= op/. objSubs;
 	
 	(*Loop over various added CGs *)
-	addedCGs={CGs[]};
-	(*TODO: Find all reasonable cgs to insert*)
+	cgChoices= Table[
+		indSet= inds@ gr/. gr-> Identity;
+		Switch[Count[indSet, adj]
+		,0,
+			Nothing
+		,1,
+			{{T[Index[gr@ adj, dummyInds[[n++]]], Index[gr@ fund, dummyInds[[n++]]], 
+				Index[Bar@ gr@ fund, dummyInds[[n++]]]]}} 
+		,2,
+			{{T[Index[gr@ adj, dummyInds[[n++]]], Index[gr@ fund, dummyInds[[n++]]], 
+				Index[Bar@ gr@ fund, dummyInds[[n++]]]],
+			T[Index[gr@ adj, dummyInds[[n++]]], Index[gr@ fund, dummyInds[[n++]]], 
+				Index[Bar@ gr@ fund, dummyInds[[n++]]]]}}
+		,_,
+			Message[DetermineContractions::adjs];
+			Abort[];
+		]
+	, {gr, Keys@ inds}];
+	addedCGs= CGs@@@ Flatten/@ Tuples@ cgChoices; 
+	(*addedCGs= {CGs[]}; *)
+	
 	Flatten[Table[
 		newOp= opSeed; newOp[[-1]]= Join[newOp[[-1]], cg];
 		inds= Cases[newOp, _Index, All];
@@ -253,7 +275,7 @@ SelfConjugateQ[SMEFTop_]@ op_:= SelfConjugateQ[op, SMEFTop];
 (*Determine operator identities *)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Operator Patterns *)
 
 
@@ -288,9 +310,9 @@ OperatorIdentificationPattern[id_, op_Operator]:= Module[{antisyms, pattern, sig
 
 OperatorPattern::openinds= "`1` contains open indices.";
 OperatorPattern[op_Operator]:= Module[{indices},
-	indices=Tally@ Cases[op, ind:Index[__]:>(ind/.Bar@x_:>x), All];
+	indices=Tally@ Cases[op, ind:Index[__]:> (ind/. Bar-> Identity), All];
 	If[Length@ Cases[indices, {_, 1}][[;;, 1]]> 0, 
-		Message[OperatorPattern::openinds, op];
+		Message[OperatorPattern::openinds, Echo@ op];
 		Abort[];
 	];
 	indices= IndexPatternReplace/@ indices[[;;, 1]];
@@ -370,7 +392,7 @@ MakeNewOperatorPatterns[opList_List]:= Module[{identifiers, newRules, nextID, op
 ];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Make identities *)
 
 
@@ -380,8 +402,9 @@ MakeNewOperatorPatterns[opList_List]:= Module[{identifiers, newRules, nextID, op
 
 Options@ ConstructOperatorIdentities= {IncludeHc-> False};
 ConstructOperatorIdentities[SMEFTop_, flavorSym_, OptionsPattern[]]:= Module[
-		{eps, index, indices, identity, identities, len, lhs, n, newOp, op, opIdentities, ops, opSyms, 
-		ordering, pair, pairs, revOrdering, rhs,  sym, opID= 1},
+		{eps, genCount, genInds, group, groups, index, indices, identity, identities, len, lhs, n, newOp, 
+			op, opIdentities, ops, opSyms, ordering, pair, pairs, revOrdering, rhs,  sym, 
+			opID= 1},
 	If[(len= Length@ $operatorIdentifiers) === 0, 
 		Return[];
 	];
@@ -397,6 +420,7 @@ ConstructOperatorIdentities[SMEFTop_, flavorSym_, OptionsPattern[]]:= Module[
 			, {sym, opSyms}];
 		
 		(*SU(2)\[CurlyEpsilon] relation*)
+		(*NB: implementation only works if the two \[CurlyEpsilon]'s do not contract*)
 		pairs= Subsets[Position[op, _\[CurlyEpsilon], All], {2}];
 		opIdentities= opIdentities~ Join~ Table[
 				eps= Extract[op, pair];
@@ -408,11 +432,42 @@ ConstructOperatorIdentities[SMEFTop_, flavorSym_, OptionsPattern[]]:= Module[
 						(newOp/. Thread[Rule@@ MapAt[Reverse, indices, {1}]])
 				]
 			, {pair, pairs}];
-		
+				
 		(*Account for H.c.*)
 		If[OptionValue@ IncludeHc,
 			AppendTo[opIdentities, op- ConjugateOperator@ op];
 		];
+		
+		(*SU(2) relation for one operator*)
+		groups= Tally@ Cases[op, T[Index[gr_@ adj, _], __Index]:> gr, All];
+		opIdentities= opIdentities~ Join~ Flatten@ Table[
+			{group, genCount}= group;
+			Catch@ Switch[{$flavorSymmetries[flavorSym, Groups, group], genCount}
+			,{SU@ 2, 1},
+				(*Do not apply identities if \[CurlyEpsilon] relations can be applied*)
+				If[Length@ Cases[op, \[CurlyEpsilon][Index[Bar@ _group, _], _], All] > 0 && 
+						Length@ Cases[op, \[CurlyEpsilon][Index[_group, _], _], All] > 0,
+					Throw@ Nothing;
+				];
+				genInds= First@ Cases[op, x:T[Index[_group, _], __]:> List@@ x, All];
+				(*Trace of generator vanishes*)
+				If[genInds[[2]]=== Bar@ genInds[[3]], Throw@ op; ];
+				indices= DeleteDuplicates@ 
+					Cases[op, Index[(group@ fund|Bar@ group@ fund), ind_]:> Index[group@ fund, ind], All];
+				indices= DeleteCases[indices, genInds[[2]]|Bar@ genInds[[3]]];
+				(*Implement all instances of identities with T^{ai}_{j} delta^{k}_{l} *)
+				Table[
+					deltaInds= Bar@ Reverse@ {deltaInds, Index[Bar@ group@ fund, Unique@ $d]};
+					newOp= DeleteCases[op, T[Index[_group, _], __], All]/. deltaInds[[2]]-> Bar@ deltaInds[[1]];  
+					op + 
+						Insert[newOp/. {Bar@ genInds[[2]]-> genInds[[3]]}, T[genInds[[1]], Sequence@@ deltaInds], {-1, -1}] -
+						Insert[newOp/. {Bar@ genInds[[3]]-> deltaInds[[1]]}, T[genInds[[1]], genInds[[2]], deltaInds[[2]]], {-1, -1}] - 
+						Insert[newOp/. {Bar@ genInds[[2]]-> deltaInds[[2]]}, T[genInds[[1]], deltaInds[[1]], genInds[[3]]], {-1, -1}]
+				, {deltaInds, indices}]
+			,_,
+				Nothing
+			]
+		, {group, groups}];
 		
 		Sow@ MatchOperatorPatterns@ opIdentities; 
 		opID++; len= Length@ $operatorIdentifiers;
@@ -473,7 +528,9 @@ OperatorSpurionBasis[SMEFTop_, flavorSym_, spurions_Spur]:= Module[{singlets, id
 	ResetOperatorPatterns[];
 	singlets= MatchOperatorPatterns@ singlets;
 	identities= ConstructOperatorIdentities[SMEFTop, flavorSym, IncludeHc-> selfConjugate];
-	singlets= Complement[singlets, identities[[;;,1]]]/. $operatorIdentifiers;
+	singlets= Complement[Keys@ $operatorIdentifiers, identities[[;;,1]]]/. $operatorIdentifiers;
+	(*singlets= Complement[singlets, identities[[;;,1]]]/. $operatorIdentifiers;*)
+	
 	(*Remove operators, where a set of spurions form a singlet*)
 	DeleteCases[singlets, _?(ReducibleOperatorQ[flavorSym])]
 ]
@@ -547,7 +604,7 @@ BasisCount[flavorSym_, opt:OptionsPattern[]]:= Module[{newOpts, basis, count},
 ]
 
 
-(* ::Subsection:: *)
+(* ::Subsection::Closed:: *)
 (*Tables *)
 
 

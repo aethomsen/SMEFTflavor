@@ -75,6 +75,16 @@ $quarkSymmetries= <|
 		FieldSubstitutions-> <|"q"-> {"q12", "q3"}, "u"-> {"u12", "u3"}, "d"->{"d12", "d3"}|>,
 		SpurionCounting-> <|"Vq"-> 1, "\[CapitalDelta]u"-> 2, "\[CapitalDelta]d"-> 2|>
 	|>,
+	"quark:3SU2"-> <|
+		Groups-> <|"SU2q"-> SU@ 2, "SU2u"-> SU@ 2, "SU2d"-> SU@ 2|>,
+		Spurions-> {"Vq", "\[CapitalDelta]u", "\[CapitalDelta]d"},
+		Charges-> <|"q12"-> 0, "u12"-> 0, "d12"-> 0, "q3"-> 0, "u3"-> 0, "d3"-> 0, 
+			"Vq"-> 0, "\[CapitalDelta]u"-> 0, "\[CapitalDelta]d"-> 0|>,
+		Representations-> <|"q12"-> {"SU2q"@ fund}, "u12"-> {"SU2u"@ fund}, "d12"-> {"SU2d"@ fund},
+			"Vq"-> {"SU2q"@ fund}, "\[CapitalDelta]u"-> {"SU2q"@ fund, Bar@ "SU2u"@ fund}, "\[CapitalDelta]d"-> {"SU2q"@ fund, Bar@ "SU2d"@ fund}|>,
+		FieldSubstitutions-> <|"q"-> {"q12", "q3"}, "u"-> {"u12", "u3"}, "d"->{"d12", "d3"}|>,
+		SpurionCounting-> <|"Vq"-> 1, "\[CapitalDelta]u"-> 2, "\[CapitalDelta]d"-> 2|>
+	|>,
 	"quark:none"-><|
 		Groups-> <||>,
 		Spurions-> {},
@@ -109,6 +119,16 @@ $leptonSymmetries= <|
 		FieldSubstitutions-> <|"l"-> {"l12", "l3"}, "e"-> {"e12", "e3"}|>,
 		SpurionCounting-> <|"Vl"-> 1, "Ve"-> 1, "\[CapitalDelta]e"-> 2, "X\[Tau]"-> 1|>
 	|>,
+	"lep:2U2xU1"-> <|
+		Groups-> <|"U2l"-> SU@ 2, "U2e"-> SU@ 2|>,
+		Spurions-> {"Vl", "Ve", "\[CapitalDelta]e", "X\[Tau]"},
+		Charges-> <|"l12"-> {1, 0, 0}, "l3"-> {0, 0, 0}, "e12"->{0, 1, 0}, "e3"-> {0, 0, 1}, 
+			"Vl"-> {1, 0, -1}, "\[CapitalDelta]e"-> {1, -1, 0}, "X\[Tau]"-> {0, 0, -1}|>,
+		Representations-> <|"l12"-> {"U2l"@ fund}, "e12"-> {"U2e"@ fund}, "Vl"-> {"U2l"@ fund},  
+			"\[CapitalDelta]e"-> {"U2l"@ fund, Bar@ "U2e"@ fund}|>,
+		FieldSubstitutions-> <|"l"-> {"l12", "l3"}, "e"-> {"e12", "e3"}|>,
+		SpurionCounting-> <|"Vl"-> 1, "\[CapitalDelta]e"-> 2, "X\[Tau]"-> 1|>
+	|>,
 	"lep:2U2"-> <|
 		Groups-> <|"U2l"-> SU@ 2, "U2e"-> SU@ 2|>,
 		Spurions-> {"Vl", "\[CapitalDelta]e"},
@@ -117,6 +137,14 @@ $leptonSymmetries= <|
 			"\[CapitalDelta]e"-> {"U2l"@ fund, Bar@ "U2e"@ fund}|>,
 		FieldSubstitutions-> <|"l"-> {"l12", "l3"}, "e"-> {"e12", "e3"}|>,
 		SpurionCounting-> <|"Vl"-> 1, "\[CapitalDelta]e"-> 2|>
+	|>,
+	"lep:U3diag"-> <|
+		Groups-> <|"U3l"-> SU@ 3|>,
+		Spurions-> {"\[CapitalDelta]l"},
+		Charges-> <|"l"-> 0, "e"-> 0, "\[CapitalDelta]l"-> 0|>,
+		Representations-> <|"l"-> {"U3l"@ fund}, "e"-> {"U3l"@ fund}, "\[CapitalDelta]l"-> {"U3l"@ adj}|>,
+		FieldSubstitutions-> <|"l"-> {"l"}, "e"-> {"e"}|>,
+		SpurionCounting-> <|"\[CapitalDelta]l"-> 2|>
 	|>,
 	"lep:2SU2"-> <|
 		Groups-> <|"U2l"-> SU@ 2, "U2e"-> SU@ 2|>,
@@ -144,6 +172,15 @@ $leptonSymmetries= <|
 		Representations-> <||>,
 		FieldSubstitutions-> <|"l"-> {"l1", "l2", "l3"}, "e"-> {"e1", "e2", "e3"}|>,
 		SpurionCounting-> <|"Ye1"-> 3, "Ye2"-> 2, "Ye3"-> 1|>
+	|>,
+	"lep:3U1"-> <|
+		Groups-> <||>,
+		Spurions-> {"Ye1", "Ye2", "Ye3"},
+		Charges-> <|"l1"-> {1, 0, 0}, "l2"-> {0, 1, 0}, "l3"-> {0, 0, 1}, 
+			"e1"-> {1, 0, 0}, "e2"-> {0, 1, 0}, "e3"-> {0, 0, 1}|>,
+		Representations-> <||>,
+		FieldSubstitutions-> <|"l"-> {"l1", "l2", "l3"}, "e"-> {"e1", "e2", "e3"}|>,
+		SpurionCounting-> <||>
 	|>,
 	"lep:none"-> <|
 		Groups-> <||>,

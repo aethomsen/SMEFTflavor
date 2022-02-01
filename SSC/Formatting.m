@@ -71,6 +71,9 @@ SetIndexedObject@ f_Symbol:= Block[{},
 SetIndexedObject@ l_List:= (SetIndexedObject/@ l; );
 
 
+SetIndexedObject@{\[CurlyEpsilon], T}
+
+
 (* ::Text:: *)
 (*Printing indices*)
 

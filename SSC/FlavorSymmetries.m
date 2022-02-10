@@ -29,6 +29,9 @@ PackageExport["leptonicOperators"]
 PackageExport["semiLeptonicOperators"]
 
 
+PackageExport["AddSMEFTSymmetry"]
+
+
 PackageScope["$operatorClasses"]
 
 
@@ -185,7 +188,17 @@ $leptonSymmetries= <|
 		FieldSubstitutions-> <|"l"-> {"l1", "l2", "l3"}, "e"-> {"e1", "e2", "e3"}|>,
 		SpurionCounting-> <|"Ye1"-> 3, "Ye2"-> 2, "Ye3"-> 1|>
 	|>,
-	"lep:3U1"-> <|
+	"lep:3U1A"-> <|
+		Groups-> <||>,
+		Spurions-> {"Ye1", "Ye2", "Ye3"},
+		Charges-> <|"l1"-> {1, 0, 0}, "l2"-> {0, 1, 0}, "l3"-> {0, 0, 1}, 
+			"e1"-> {-1, 0, 0}, "e2"-> {0, -1, 0}, "e3"-> {0, 0, -1},
+			"Ye1"-> {2, 0, 0}, "Ye2"-> {0, 2, 0}, "Ye3"-> {0, 0, 2}|>,
+		Representations-> <||>,
+		FieldSubstitutions-> <|"l"-> {"l1", "l2", "l3"}, "e"-> {"e1", "e2", "e3"}|>,
+		SpurionCounting-> <|"Ye1"-> 3, "Ye2"-> 2, "Ye3"-> 1|>
+	|>,
+		"lep:3U1V"-> <|
 		Groups-> <||>,
 		Spurions-> {"Ye1", "Ye2", "Ye3"},
 		Charges-> <|"l1"-> {1, 0, 0}, "l2"-> {0, 1, 0}, "l3"-> {0, 0, 1}, 
@@ -203,6 +216,13 @@ $leptonSymmetries= <|
 		SpurionCounting-> <||>
 	|>
 |>;
+
+
+(* ::Subsubsection:: *)
+(*Mixed symmetries*)
+
+
+$mixedSymmetries= <||>;
 
 
 (* ::Subsection:: *)
@@ -235,5 +255,29 @@ JoinQuarkLeptonSymmetry[quarkSym_, lepSym_]:= Module[{atr, lU1s, qU1s, sym=<||>,
 
 
 UpdateSymmetries[]:=(
-	$flavorSymmetries= Join[$leptonSymmetries, $quarkSymmetries, MakeProductSymmetries[]];);
+	$flavorSymmetries= Join[$leptonSymmetries, 
+		$quarkSymmetries, 
+		MakeProductSymmetries[],
+		$mixedSymmetries];);
 UpdateSymmetries[];
+
+
+(* ::Subsection:: *)
+(*Add Symmetry*)
+
+
+AddSMEFTSymmetry::unkwntype= "Enter a valid symmetry type (\"Lepton\", \"Quark\", \"Mixed\")"
+AddSMEFTSymmetry[symType_, name_String-> groupInfo_Association]:= Block[{},
+	Switch[symType
+	,"Lepton",
+		$leptonSymmetries@ name= groupInfo;
+	,"Quark",
+		$quarkSymmetries@ name= groupInfo;
+	,"Mixed",
+		$mixedSymmetries@ name= groupInfo;
+	,_,
+		Message[AddSMEFTSymmetry::unkwntype];
+		Abort[];	
+	];
+	UpdateSymmetries[];
+]

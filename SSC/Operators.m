@@ -235,7 +235,7 @@ ReducibleOperatorQ[op_Operator, flavorSym_]:= Module[{objects, opens, pos, contr
 ReducibleOperatorQ[flavorSym_]@ op_:= ReducibleOperatorQ[op, flavorSym];
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Conjugation*)
 
 
@@ -244,10 +244,10 @@ ReducibleOperatorQ[flavorSym_]@ op_:= ReducibleOperatorQ[op, flavorSym];
 
 
 ConjugateOperator::invldFields= "Operator has `1` fields.";
-ConjugateOperator[Operator[fields_, spurs_Spur, cgs_]]:= Module[{cFields, cSpurs, cCGs},
+ConjugateOperator[Operator[fields_, spurs_Spur, cgs_], flavorSym_]:= Module[{cFields, cSpurs, cCGs},
 	cFields= Bar/@ Switch[Length@ fields, 2, fields[[{2, 1}]], 4, fields[[{2, 1, 4, 3}]], _,
 		Message[ConjugateOperator::invldFields, Length@ fields]; Abort[];];
-	cSpurs= Bar/@ spurs;
+	cSpurs= SymBar[flavorSym]@ spurs;
 	(*Conjugate CGs*)
 	cCGs= cgs/. {e_\[CurlyEpsilon]-> -e, T[A_, a_, b_]:> T[A, b, a]}//. CGs[n_Integer cg_, x___]:>n CGs[cg, x];
 	
@@ -260,16 +260,16 @@ ConjugateOperator[Operator[fields_, spurs_Spur, cgs_]]:= Module[{cFields, cSpurs
 (*Check if a given operator is Hermitian *)
 
 
-SelfConjugateQ[op_Operator, SMEFTop_]:= Module[{pat= OperatorPattern@ op, newOp, opSyms, sym, out= False},
+SelfConjugateQ[op_Operator, SMEFTop_, flavorSym_]:= Module[{pat= OperatorPattern@ op, newOp, opSyms, sym, out= False},
 	opSyms= Lookup[$smeftOperators@ SMEFTop, PermutationSymmetries, {}];
 	AppendTo[opSyms, Range@ Length@ First@ op];
 	Do[
 		newOp= op; newOp[[1]]= newOp[[1, sym]]; 
-		If[MatchQ[ConjugateOperator@ newOp, pat], out= True; Return[]; ];
+		If[MatchQ[ConjugateOperator[newOp, flavorSym], pat], out= True; Return[]; ];
 	,{sym, opSyms}];
 	out
 ];
-SelfConjugateQ[SMEFTop_]@ op_:= SelfConjugateQ[op, SMEFTop];
+SelfConjugateQ[SMEFTop_, flavorSym_]@ op_:= SelfConjugateQ[op, SMEFTop, flavorSym];
 
 
 (* ::Subsection:: *)
@@ -393,7 +393,7 @@ MakeNewOperatorPatterns[opList_List]:= Module[{identifiers, newRules, nextID, op
 ];
 
 
-(* ::Subsubsection:: *)
+(* ::Subsubsection::Closed:: *)
 (*Make identities *)
 
 
@@ -436,7 +436,7 @@ ConstructOperatorIdentities[SMEFTop_, flavorSym_, OptionsPattern[]]:= Module[
 				
 		(*Account for H.c.*)
 		If[OptionValue@ IncludeHc,
-			AppendTo[opIdentities, op- ConjugateOperator@ op];
+			AppendTo[opIdentities, op- ConjugateOperator[op, flavorSym]];
 		];
 		
 		(*SU(2) relation for one operator*)
@@ -511,7 +511,7 @@ OperatorScore[op_Operator, flavorSym_]:=Module[{score},
 (*Determine operator basis *)
 
 
-(* ::Subsubsection::Closed:: *)
+(* ::Subsubsection:: *)
 (*Basis for a single Operator--Spurion combination*)
 
 
@@ -524,7 +524,7 @@ OperatorSpurionBasis[SMEFTop_, flavorSym_, spurions_Spur]:= Module[{singlets, id
 	singlets = ConstructSinglets[SMEFTop, flavorSym, spurions];
 	If[Length@ singlets === 0, Return@ {};];
 	(*Checks if the operator-spurion combination is self conbjugate*)
-	selfConjugate= Bar@ spurions === spurions && !$smeftOperators[SMEFTop, UniqueHc];
+	selfConjugate= SymBar[flavorSym]@ spurions === spurions && !$smeftOperators[SMEFTop, UniqueHc];
 	(*Remove operators that can be simplified away*)
 	ResetOperatorPatterns[];
 	singlets= MatchOperatorPatterns@ singlets;
@@ -545,15 +545,16 @@ OperatorSpurionBasis[SMEFTop_, flavorSym_, spurions_Spur]:= Module[{singlets, id
 (*Determines all combination of spurions given flavor symmetry and counting order*)
 
 
-SpurionCombinations[flavorSym_, ord_Integer]:= Module[{spurCases, counting, spurions, n, noCCcases},
-	counting=Lookup[$flavorSymmetries[flavorSym], SpurionCounting, {}];
-	spurions= DeleteDuplicates@ Join[Keys@ counting, Bar/@ Keys@ counting];
+SpurionCombinations[flavorSym_, ord_Integer]:= Module[{spurCases, counting, spurions, n, noCCcases, reals},
+	reals= Lookup[$flavorSymmetries[flavorSym], SelfConjugate, {}];
+	counting= Lookup[$flavorSymmetries[flavorSym], SpurionCounting, {}];
+	spurions= Join[Keys@ counting, Bar/@ Complement[Keys@ counting, reals]];
 	spurCases= Join@@ Table[Tuples[spurions, n], {n, 0, ord}];
 	spurCases= Select[spurCases, Plus@@ (#/. Bar-> Identity/. counting) <= ord &];
 	(*All spurion cases satisfying the counting*)
 	spurCases= Spur@@@ spurCases //DeleteDuplicates;
 	(*Removing the complex conjugates*)
-	noCCcases= DeleteDuplicatesBy[(Sort@ {#, Bar@ #}&)/@ spurCases, Last][[;;, 1]];
+	noCCcases= DeleteDuplicatesBy[(Sort@ {#, SymBar[flavorSym]@ #}&)/@ spurCases, Last][[;;, 1]];
 	{noCCcases, spurCases}
 ]
 
@@ -579,7 +580,7 @@ OperatorBasis[flavorSym_, OptionsPattern[]]:= Module[{spurionCombinations, smeft
 	Association@ Table[smeftOp->
 		DeleteCases[Merge[Table[<|(spur/. Bar-> Identity)->
 			OperatorSpurionBasis[smeftOp, flavorSym, spur]/. 
-			op_Operator? (Not@* SelfConjugateQ[smeftOp])-> PlusHc@ op|>,
+			op_Operator? (Not@* SelfConjugateQ[smeftOp, flavorSym])-> PlusHc@ op|>,
 				{spur, spurionCombinations[[If[$smeftOperators[smeftOp, UniqueHc], 2, 1]]]}], Flatten], {}]
 	,{smeftOp, smeftOps}]
 ]

@@ -34,6 +34,7 @@ PackageExport["T"]
 
 PackageScope["ComplexRepQ"]
 PackageScope["Charge"]
+PackageScope["SymBar"]
 
 
 (* ::Section:: *)
@@ -52,6 +53,20 @@ Bar@ Bar@ x_:= x
 Bar[x:(_Plus| _Times| _Power| _List)]:= Bar/@x;
 Bar@ x_Complex:= Conjugate@ x;
 Bar[x_][ind___]:= Bar@ x@ ind;
+
+
+(* ::Subsubsection:: *)
+(*Baring with symmetry *)
+
+
+(* ::Text:: *)
+(*Barring Spurions depending on a flavor symmetry *)
+
+
+SymBar[flavorSym_]@ expr_:= Module[{reals, out= Bar@ expr},
+	reals= Lookup[$flavorSymmetries[flavorSym], SelfConjugate, {}];
+	out/. spurs_Spur:> (spurs/. Bar@ sp_/; MemberQ[reals, sp| Head@ sp]-> sp)  
+]
 
 
 (* ::Subsection:: *)

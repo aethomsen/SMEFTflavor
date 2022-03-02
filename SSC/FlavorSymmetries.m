@@ -249,6 +249,7 @@ JoinQuarkLeptonSymmetry[quarkSym_, lepSym_]:= Module[{atr, lU1s, qU1s, sym=<||>,
 		If[# === 0, 0, PadRight[#, qU1s+ lU1s]]&/@ qSym@ Charges,
 		If[# === 0, 0, PadLeft[#, qU1s+ lU1s]]&/@ lSym@ Charges
 	];
+	sym@ SelfConjugate= Lookup[qSym, SelfConjugate, {}]~ Join~ Lookup[lSym, SelfConjugate, {}];
 	sym
 ];
 

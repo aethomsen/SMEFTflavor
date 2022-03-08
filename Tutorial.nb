@@ -1,0 +1,3954 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[    154309,       3946]
+NotebookOptionsPosition[    147492,       3831]
+NotebookOutlinePosition[    148058,       3849]
+CellTagsIndexPosition[    148015,       3846]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Introduction", "Subsection",
+ CellChangeTimes->{{3.8521797138265553`*^9, 
+  3.852179715915023*^9}},ExpressionUUID->"4d24ff85-6416-4a06-a032-\
+0e2b5dc4fd2b"],
+
+Cell[CellGroupData[{
+
+Cell["Load package", "Subsubsection",
+ CellChangeTimes->{{3.855653899504364*^9, 
+  3.85565390233952*^9}},ExpressionUUID->"f378d2ab-5ac1-44ea-bf59-\
+ad3a70f186a4"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"SetDirectory", "@", 
+   RowBox[{"NotebookDirectory", "[", "]"}]}], ";"}], "\n", 
+ RowBox[{"<<", "SSC`"}]}], "Input",
+ CellChangeTimes->{{3.855653930280333*^9, 3.855653954174884*^9}},
+ CellLabel->"In[1]:=",ExpressionUUID->"24c4096f-5982-43b8-b233-f06ad867a112"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData["\<\"Loading SSC`...\"\>"], "Print",
+ CellChangeTimes->{3.855653954634871*^9, 3.855768162106964*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"e1134e84-b97f-4461-a764-fa3fe457b033"],
+
+Cell[BoxData[
+ StyleBox["\<\"Loading successful.\"\>",
+  StripOnInput->False,
+  LineColor->RGBColor[0.3, 0.55, 0.2],
+  FrontFaceColor->RGBColor[0.3, 0.55, 0.2],
+  BackFaceColor->RGBColor[0.3, 0.55, 0.2],
+  GraphicsColor->RGBColor[0.3, 0.55, 0.2],
+  FontColor->RGBColor[0.3, 0.55, 0.2]]], "Print",
+ CellChangeTimes->{3.855653954634871*^9, 3.855768162127442*^9},
+ CellLabel->
+  "During evaluation of \
+In[1]:=",ExpressionUUID->"413bd69e-af77-4f34-ab07-0dd89f3a1740"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Symmetries", "Subsubsection",
+ CellChangeTimes->{{3.852179790012651*^9, 
+  3.852179791615683*^9}},ExpressionUUID->"e2e97132-8306-4152-b608-\
+dfe20efd48ab"],
+
+Cell["\<\
+SSC comes with many flavor symmetries already implemented, including all the \
+symmetries of the associated paper. There are symmetries of the quark sector \
+(named \[OpenCurlyDoubleQuote]quark:...\[CloseCurlyDoubleQuote]), symmetries \
+of the lepton sector (named \[OpenCurlyDoubleQuote]lep:...\
+\[CloseCurlyDoubleQuote]), and symmetries of the full SMEFT made up of a \
+symmetry of the quark and of the lepton sector (given as a list {\
+\[OpenCurlyDoubleQuote]quark:...\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]lep:...\[CloseCurlyDoubleQuote]}) for every pair of \
+quark and lepton symmetries.\
+\>", "Text",
+ CellChangeTimes->{{3.855654018888052*^9, 3.855654062625145*^9}, {
+  3.855654105116034*^9, 3.8556541230619793`*^9}, {3.855654376496749*^9, 
+  3.855654569468856*^9}},ExpressionUUID->"835cd790-dbd8-4bfa-aaf8-\
+8a6730f299f2"],
+
+Cell["List of all implemented symmetries", "Text",
+ CellChangeTimes->{{3.852179662303587*^9, 3.8521796677450666`*^9}, {
+  3.852180258748946*^9, 3.852180279914722*^9}, {3.855653971736924*^9, 
+  3.855653973431878*^9}},ExpressionUUID->"24fbae93-2cb4-438d-917e-\
+bc740b72aa74"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Keys", "@", "$flavorSymmetries"}]], "Input",
+ CellChangeTimes->{{3.852179669101781*^9, 3.852179674355955*^9}, {
+  3.8521802291258698`*^9, 3.852180233689397*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"1c938ee9-f103-472f-b9bb-a9ec467437a9"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"lep:MFV\"\>", ",", "\<\"lep:2U2x2U1\"\>", 
+   ",", "\<\"lep:2U2xU1\"\>", ",", "\<\"lep:2U2\"\>", 
+   ",", "\<\"lep:U3diag\"\>", ",", "\<\"lep:2SU2\"\>", 
+   ",", "\<\"lep:U2diag\"\>", ",", "\<\"lep:6U1\"\>", ",", "\<\"lep:3U1A\"\>",
+    ",", "\<\"lep:3U1V\"\>", ",", "\<\"lep:none\"\>", 
+   ",", "\<\"quark:MFV\"\>", ",", "\<\"quark:2U2xU3\"\>", 
+   ",", "\<\"quark:3U2xU1\"\>", ",", "\<\"quark:3U2\"\>", 
+   ",", "\<\"quark:3SU2\"\>", ",", "\<\"quark:none\"\>", ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:MFV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:2U2x2U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:2U2xU1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:U3diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:2SU2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:U2diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:6U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:3U1A\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:3U1V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:none\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:MFV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:2U2x2U1\"\>"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:2U2xU1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:U3diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:2SU2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:U2diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:6U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:3U1A\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:3U1V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:2U2xU3\"\>", ",", "\<\"lep:none\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:MFV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:2U2x2U1\"\>"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:2U2xU1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:U3diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:2SU2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:U2diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:6U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:3U1A\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:3U1V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2xU1\"\>", ",", "\<\"lep:none\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:MFV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:2U2x2U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:2U2xU1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:U3diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:2SU2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:U2diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:6U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:3U1A\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:3U1V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:none\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:MFV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:2U2x2U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:2U2xU1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:U3diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:2SU2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:U2diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:6U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:3U1A\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:3U1V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:3SU2\"\>", ",", "\<\"lep:none\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:MFV\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:2U2x2U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:2U2xU1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:U3diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:2SU2\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:U2diag\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:6U1\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:3U1A\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:3U1V\"\>"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"\<\"quark:none\"\>", ",", "\<\"lep:none\"\>"}], "}"}]}], 
+  "}"}]], "Output",
+ CellChangeTimes->{
+  3.852179674661981*^9, {3.852180230908011*^9, 3.85218023398455*^9}, {
+   3.855653961015202*^9, 3.8556539752656393`*^9}},
+ CellLabel->"Out[6]=",ExpressionUUID->"f1515dc2-d7f6-4659-bcd1-1cb804fcd76d"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["$flavorSymmetries", "Input"],
+ " is an association with the details of all the various symmetries. To see \
+the detail of any flavor symmetry, simply access the corresponding entry in \
+the association, e.g.,  "
+}], "Text",
+ CellChangeTimes->{{3.8521797061028557`*^9, 3.852179710258203*^9}, {
+  3.852179781666685*^9, 3.8521798022873173`*^9}, {3.8556545810296783`*^9, 
+  3.8556547105789547`*^9}},ExpressionUUID->"f939f1f7-ec82-4bcb-ac89-\
+9a38844fcc77"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"$flavorSymmetries", "@", 
+  RowBox[{"{", 
+   RowBox[{"\"\<quark:MFV\>\"", ",", "\"\<lep:2U2\>\""}], "}"}]}]], "Input",
+ CellChangeTimes->{{3.852179806933069*^9, 3.8521798329989862`*^9}, {
+  3.855654769310957*^9, 3.8556547846236687`*^9}, {3.855654815539543*^9, 
+  3.8556548161033688`*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"3451e542-c17c-4bee-935c-23c40811790f"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"Groups", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"U3q\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "3", "]"}]}], ",", 
+      RowBox[{"\<\"U3u\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "3", "]"}]}], ",", 
+      RowBox[{"\<\"U3d\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "3", "]"}]}], ",", 
+      RowBox[{"\<\"U2l\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "2", "]"}]}], ",", 
+      RowBox[{"\<\"U2e\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "2", "]"}]}]}], "\[RightAssociation]"}]}], ",", 
+   RowBox[{"Spurions", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\<\"Yu\"\>", ",", "\<\"Yd\"\>", ",", "\<\"Vl\"\>", 
+      ",", "\<\"\[CapitalDelta]e\"\>"}], "}"}]}], ",", 
+   RowBox[{"Representations", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"q\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"U3q\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"u\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"U3u\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"d\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"U3d\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"Yu\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\<\"U3q\"\>", "[", "fund", "]"}], ",", 
+         RowBox[{"Bar", "[", 
+          RowBox[{"\<\"U3u\"\>", "[", "fund", "]"}], "]"}]}], "}"}]}], ",", 
+      RowBox[{"\<\"Yd\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\<\"U3q\"\>", "[", "fund", "]"}], ",", 
+         RowBox[{"Bar", "[", 
+          RowBox[{"\<\"U3d\"\>", "[", "fund", "]"}], "]"}]}], "}"}]}], ",", 
+      RowBox[{"\<\"l12\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"U2l\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"e12\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"U2e\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"Vl\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"U2l\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]e\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\<\"U2l\"\>", "[", "fund", "]"}], ",", 
+         RowBox[{"Bar", "[", 
+          RowBox[{"\<\"U2e\"\>", "[", "fund", "]"}], "]"}]}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"FieldSubstitutions", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"q\"\>", "\[Rule]", 
+       RowBox[{"{", "\<\"q\"\>", "}"}]}], ",", 
+      RowBox[{"\<\"u\"\>", "\[Rule]", 
+       RowBox[{"{", "\<\"u\"\>", "}"}]}], ",", 
+      RowBox[{"\<\"d\"\>", "\[Rule]", 
+       RowBox[{"{", "\<\"d\"\>", "}"}]}], ",", 
+      RowBox[{"\<\"l\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"l12\"\>", ",", "\<\"l3\"\>"}], "}"}]}], ",", 
+      RowBox[{"\<\"e\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"e12\"\>", ",", "\<\"e3\"\>"}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"SpurionCounting", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"Yu\"\>", "\[Rule]", "1"}], ",", 
+      RowBox[{"\<\"Yd\"\>", "\[Rule]", "2"}], ",", 
+      RowBox[{"\<\"Vl\"\>", "\[Rule]", "1"}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]e\"\>", "\[Rule]", "2"}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"Charges", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"q\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0", ",", "0", ",", "0", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"\<\"u\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "1", ",", "0", ",", "0", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"\<\"d\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "1", ",", "0", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"\<\"Yu\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", 
+         RowBox[{"-", "1"}], ",", "0", ",", "0", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"\<\"Yd\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "0", ",", 
+         RowBox[{"-", "1"}], ",", "0", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"\<\"l12\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "1", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"\<\"l3\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"e12\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "0", ",", "1"}], "}"}]}], ",", 
+      RowBox[{"\<\"e3\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"Vl\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "1", ",", "0"}], "}"}]}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]e\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"0", ",", "0", ",", "0", ",", "1", ",", 
+         RowBox[{"-", "1"}]}], "}"}]}]}], "\[RightAssociation]"}]}], ",", 
+   RowBox[{"SelfConjugate", "\[Rule]", 
+    RowBox[{"{", "}"}]}]}], "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{{3.85217982820709*^9, 3.85217983321481*^9}, 
+   3.855653978273823*^9, {3.8556547644421864`*^9, 3.855654784941195*^9}, 
+   3.85565481647686*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"cb695c76-b11b-4691-865c-2ce52651af49"]
+}, Open  ]],
+
+Cell[TextData[{
+ "The user may wish to investigate other flavor symmetries that have not been \
+implemented. To this end, one can use ",
+ StyleBox["AddSmeftSymmetry[<symmetryType>, <name>\[Rule] <details>]", 
+  "Input"],
+ ", where ",
+ StyleBox["<symmetryType>", "Input"],
+ " is the type of the symmetry \[OpenCurlyDoubleQuote]Lepton\
+\[CloseCurlyDoubleQuote]/\[CloseCurlyDoubleQuote]Quark\[CloseCurlyDoubleQuote]\
+  for a symmetry of the lepton/quark sector respectively. \
+\[OpenCurlyDoubleQuote]Mixed\[CloseCurlyDoubleQuote] can be used to specify a \
+symmetry of both quarks and leptons. ",
+ StyleBox["<name>", "Input"],
+ " will indicate the name of the symmetry which is used to refer to the \
+symmetry in the other functions, while ",
+ StyleBox["<details>", "Input"],
+ " is an association with all information relevant to the symmetry. Once \
+called, if the symmetry type is lepton or quark, combinations with all other \
+quark/lepton symmetries are also generated. As an example we can add a ",
+ Cell[BoxData[
+  FormBox[
+   RowBox[{
+    RowBox[{"U", "(", "2", ")"}], "\[Times]", " ", 
+    RowBox[{"U", "(", "1", ")"}]}], TraditionalForm]],
+  FormatType->TraditionalForm,ExpressionUUID->
+  "7745884d-34ce-4a48-b4ec-22dc8384dcf0"],
+ " symmetry of the lepton sector: "
+}], "Text",
+ CellChangeTimes->{{3.855654717731656*^9, 3.855654754363207*^9}, {
+  3.855767990986081*^9, 3.855768393309314*^9}, {3.855769109246304*^9, 
+  3.855769109548745*^9}},ExpressionUUID->"f5b5a5bf-c857-4b64-a0f1-\
+903e8603b674"],
+
+Cell[BoxData[
+ RowBox[{"AddSMEFTSymmetry", "[", 
+  RowBox[{"\"\<Lepton\>\"", ",", " ", 
+   RowBox[{"\"\<lep:U2xU1\>\"", "->", 
+    RowBox[{"<|", "\n", "\t", 
+     RowBox[{
+      RowBox[{"Groups", "->", " ", 
+       RowBox[{"<|", 
+        RowBox[{"\"\<U2l\>\"", "->", " ", 
+         RowBox[{"SU", "@", " ", "2"}]}], "|>"}]}], ",", "\n", "\t", 
+      RowBox[{"FieldSubstitutions", "->", " ", 
+       RowBox[{"<|", 
+        RowBox[{
+         RowBox[{"\"\<l\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"\"\<l12\>\"", ",", " ", "\"\<l3\>\""}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<e\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"\"\<e12\>\"", ",", " ", "\"\<e3\>\""}], "}"}]}]}], 
+        "|>"}]}], ",", "\n", "\t", 
+      RowBox[{"Spurions", "->", " ", 
+       RowBox[{"{", 
+        RowBox[{
+        "\"\<\[CapitalDelta]l\>\"", ",", " ", "\"\<Vl\>\"", ",", " ", 
+         "\"\<X\[Tau]\>\""}], "}"}]}], ",", "\n", "\t", 
+      RowBox[{"Charges", "->", " ", 
+       RowBox[{"<|", 
+        RowBox[{
+         RowBox[{"\"\<l12\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", "0"}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<l3\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "1"}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<e12\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"-", "1"}], ",", "0"}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<e3\>\"", "->", 
+          RowBox[{"{", " ", 
+           RowBox[{"0", ",", 
+            RowBox[{"-", "1"}]}], "}"}]}], ",", "\n", "\t\t ", 
+         RowBox[{"\"\<\[CapitalDelta]l\>\"", "->", 
+          RowBox[{"{", 
+           RowBox[{"2", ",", "0"}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<Vl\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"1", ",", "1"}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<X\[Tau]\>\"", "->", 
+          RowBox[{"{", 
+           RowBox[{"0", ",", "2"}], "}"}]}]}], "|>"}]}], ",", "\n", "\t", 
+      RowBox[{"Representations", "->", " ", 
+       RowBox[{"<|", 
+        RowBox[{
+         RowBox[{"\"\<l12\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"\"\<U2l\>\"", "@", " ", "fund"}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<e12\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"\"\<U2l\>\"", "@", " ", "fund"}], "}"}]}], ",", " ", "\n",
+          "\t\t", 
+         RowBox[{"\"\<Vl\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"\"\<U2l\>\"", "@", " ", "fund"}], "}"}]}], ",", " ", 
+         RowBox[{"\"\<\[CapitalDelta]l\>\"", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"\"\<U2l\>\"", "@", " ", "adj"}], "}"}]}]}], "|>"}]}], ",",
+       "\n", "\t", 
+      RowBox[{"SpurionCounting", "->", " ", 
+       RowBox[{"<|", 
+        RowBox[{
+         RowBox[{"\"\<X\[Tau]\>\"", "->", " ", "1"}], ",", 
+         RowBox[{"\"\<Vl\>\"", "->", " ", "2"}], ",", " ", 
+         RowBox[{"\"\<\[CapitalDelta]l\>\"", "->", "3"}]}], "|>"}]}], ",", 
+      "\n", "\t", 
+      RowBox[{"SelfConjugate", "->", " ", 
+       RowBox[{"{", "\"\<\[CapitalDelta]l\>\"", "}"}]}]}], "\n", "|>"}]}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.855654921762048*^9, 3.855654928214818*^9}, {
+  3.855767957455037*^9, 3.85576796004673*^9}, {3.855768906347473*^9, 
+  3.855768924448641*^9}, {3.8557691053220587`*^9, 3.855769105726982*^9}, {
+  3.855769705727666*^9, 3.855769707980536*^9}},
+ CellLabel->"In[7]:=",ExpressionUUID->"a05b29d7-d680-46a9-9b63-d4c2f18ef315"],
+
+Cell[TextData[{
+ "The association with the group information contains the following arguments \
+(see also details of the already implemented symmetries available in ",
+ StyleBox["$flavorSymmetries", "Input"],
+ "):"
+}], "Text",
+ CellChangeTimes->{{3.8557679853044033`*^9, 3.85576798638981*^9}, {
+   3.8557683969458523`*^9, 3.855768445449502*^9}, 3.855768476966441*^9, {
+   3.85576883394515*^9, 3.855768835798456*^9}, {3.855769522732463*^9, 
+   3.855769560535757*^9}},ExpressionUUID->"b8965b6b-8763-46e9-b2ed-\
+928f9787baf1"],
+
+Cell[TextData[{
+ StyleBox["Groups", "Input"],
+ " is an association with names (strings) and types of the non-Abelian \
+symmetries. These should be either ",
+ StyleBox["SU[2]", "Input"],
+ " or ",
+ StyleBox["SU[3]", "Input"],
+ "."
+}], "Item",
+ CellChangeTimes->{{3.855768472617647*^9, 3.855768536917326*^9}, {
+  3.855768580443698*^9, 
+  3.855768583861677*^9}},ExpressionUUID->"699876a6-3162-4d62-88d9-\
+63d1e17d2b8b"],
+
+Cell[TextData[{
+ StyleBox["FieldSubstitutions", "Input"],
+ " is an association that indicates how each SM fermion \
+\[OpenCurlyDoubleQuote]q\[CloseCurlyDoubleQuote], \[OpenCurlyDoubleQuote]u\
+\[CloseCurlyDoubleQuote], \[OpenCurlyDoubleQuote]d\[CloseCurlyDoubleQuote], \
+\[OpenCurlyDoubleQuote]l\[CloseCurlyDoubleQuote], and \
+\[OpenCurlyDoubleQuote]e\[CloseCurlyDoubleQuote] decomposes under the \
+symmetry (use only the leptons/quarks when defining a quark/lepton symmetry). \
+The decomposition of each field is a list of strings naming the components. \
+If the field transforms as a triplet, it should be indicated in the same \
+manner but the name can be reused, e.g. ",
+ StyleBox["\[OpenCurlyDoubleQuote]l\[CloseCurlyDoubleQuote]\[Rule]{\
+\[OpenCurlyDoubleQuote]l\[CloseCurlyDoubleQuote]}", "Input"],
+ ".   "
+}], "Item",
+ CellChangeTimes->{
+  3.855768472617647*^9, {3.8557685391009817`*^9, 
+   3.855768784690638*^9}},ExpressionUUID->"55c7c49b-277a-4c64-b82d-\
+8bac697d3c07"],
+
+Cell[TextData[{
+ StyleBox["Spurions", "Input"],
+ " is a list with the names (strings) of all the spurions of the symmetry. "
+}], "Item",
+ CellChangeTimes->{
+  3.855768472617647*^9, {3.85576879627137*^9, 3.855768830871217*^9}, {
+   3.8557689294076147`*^9, 
+   3.855768939632545*^9}},ExpressionUUID->"ad5ce2b9-c404-4886-9368-\
+4434ffb1a19a"],
+
+Cell[TextData[{
+ StyleBox["Charges", "Input"],
+ " is an association with the U(1) charges of all component fields and \
+spurions. These should be given as a list of charges with an entry for every \
+U(1) factor of the symmetry. In case a field or spurion is neutral simply \
+indicate it with 0, rather than a list. "
+}], "Item",
+ CellChangeTimes->{
+  3.855768472617647*^9, {3.85576879627137*^9, 3.855768830871217*^9}, {
+   3.8557689294076147`*^9, 3.85576915949708*^9}, {3.855769261604216*^9, 
+   3.8557692630142097`*^9}},ExpressionUUID->"38298637-4c03-43de-9951-\
+d626ad5583f3"],
+
+Cell[TextData[{
+ StyleBox["Representations", "Input"],
+ " is an association with the representation of the non-trivial component \
+fields and spurions under the non-Abelian group factors. The values are Lists \
+with the representations of each flavor index of the spurion/ component field \
+in question. The representations are indicated as ",
+ StyleBox["<name of group (string)>[<fund/adj>]", "Input"],
+ " for fundamental and adjoint indices respectively. Conjugate \
+representations are indicated as ",
+ StyleBox["Bar", "Input"],
+ "[",
+ StyleBox["<name of group (string)>[fund]]", "Input"],
+ ". "
+}], "Item",
+ CellChangeTimes->{
+  3.855768472617647*^9, {3.85576879627137*^9, 3.855768830871217*^9}, {
+   3.8557689294076147`*^9, 
+   3.855769498743788*^9}},ExpressionUUID->"6f939c06-df0b-44a7-8589-\
+37defcd6e7bb"],
+
+Cell[TextData[{
+ StyleBox["SpurionCounting", "Input"],
+ " is an association with the order of each spurion in the spurion counting. \
+Other functions will determine all structures with spurion counting up to a \
+certain order (calculated as the sum of the order of all spurions."
+}], "Item",
+ CellChangeTimes->{
+  3.855768472617647*^9, {3.85576879627137*^9, 3.855768830871217*^9}, {
+   3.8557689294076147`*^9, 3.855769496712699*^9}, {3.855769568065221*^9, 
+   3.855769651791883*^9}},ExpressionUUID->"4acf21f8-976f-465e-bcf8-\
+b4a0e114221e"],
+
+Cell[TextData[{
+ StyleBox["SelfConjugate", "Input"],
+ " is a list with the names of all real spurions. By default all spurions are \
+assumed to be complex valued."
+}], "Item",
+ CellChangeTimes->{
+  3.855768472617647*^9, {3.85576879627137*^9, 3.855768830871217*^9}, {
+   3.8557689294076147`*^9, 3.855769496712699*^9}, {3.855769568065221*^9, 
+   3.855769712907997*^9}},ExpressionUUID->"024a9425-2bae-4fb4-88f7-\
+47face68905c"],
+
+Cell["\<\
+Nb. in case the there are no objects for one of the keys, one should still \
+put in the needed \
+\>", "Text",
+ CellChangeTimes->{{3.855768841174231*^9, 
+  3.855768882005848*^9}},ExpressionUUID->"fec7c6db-c4e1-4855-9b82-\
+aa0abecfafb6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"$flavorSymmetries", "@", "\"\<quark:3SU2\>\""}]], "Input",
+ CellChangeTimes->{{3.855769044998476*^9, 3.855769057459077*^9}},
+ CellLabel->"In[6]:=",ExpressionUUID->"4260dad6-5e88-4b46-af15-a26ffd332b61"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"Groups", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"SU2q\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "2", "]"}]}], ",", 
+      RowBox[{"\<\"SU2u\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "2", "]"}]}], ",", 
+      RowBox[{"\<\"SU2d\"\>", "\[Rule]", 
+       RowBox[{"SU", "[", "2", "]"}]}]}], "\[RightAssociation]"}]}], ",", 
+   RowBox[{"Spurions", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{"\<\"Vq\"\>", ",", "\<\"\[CapitalDelta]u\"\>", 
+      ",", "\<\"\[CapitalDelta]d\"\>"}], "}"}]}], ",", 
+   RowBox[{"Charges", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"q12\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"u12\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"d12\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"q3\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"u3\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"d3\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"Vq\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]u\"\>", "\[Rule]", "0"}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]d\"\>", "\[Rule]", "0"}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"Representations", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"q12\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"SU2q\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"u12\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"SU2u\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"d12\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"SU2d\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"Vq\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"SU2q\"\>", "[", "fund", "]"}], "}"}]}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]u\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\<\"SU2q\"\>", "[", "fund", "]"}], ",", 
+         RowBox[{"Bar", "[", 
+          RowBox[{"\<\"SU2u\"\>", "[", "fund", "]"}], "]"}]}], "}"}]}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]d\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"\<\"SU2q\"\>", "[", "fund", "]"}], ",", 
+         RowBox[{"Bar", "[", 
+          RowBox[{"\<\"SU2d\"\>", "[", "fund", "]"}], "]"}]}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"FieldSubstitutions", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"q\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"q12\"\>", ",", "\<\"q3\"\>"}], "}"}]}], ",", 
+      RowBox[{"\<\"u\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"u12\"\>", ",", "\<\"u3\"\>"}], "}"}]}], ",", 
+      RowBox[{"\<\"d\"\>", "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"\<\"d12\"\>", ",", "\<\"d3\"\>"}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"SpurionCounting", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"\<\"Vq\"\>", "\[Rule]", "1"}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]u\"\>", "\[Rule]", "2"}], ",", 
+      RowBox[{"\<\"\[CapitalDelta]d\"\>", "\[Rule]", "2"}]}], 
+     "\[RightAssociation]"}]}]}], "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{3.855769057871373*^9},
+ CellLabel->"Out[6]=",ExpressionUUID->"5df98368-af87-492f-a827-b19e8b05d2ca"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["SMEFT operators ", "Subsubsection",
+ CellChangeTimes->{{3.852179930470976*^9, 
+  3.852179936408683*^9}},ExpressionUUID->"5293f235-d78a-4572-9937-\
+df002394d825"],
+
+Cell["The names of the SMEFT operators (Warsaw basis) are ", "Text",
+ CellChangeTimes->{{3.852179967182063*^9, 3.8521799743113127`*^9}, {
+  3.855769788096192*^9, 
+  3.855769792145746*^9}},ExpressionUUID->"15417a5c-97be-496d-bf44-\
+5f0973a9328f"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"Keys", "@", "$smeftOperators"}]], "Input",
+ CellChangeTimes->{{3.85217997543858*^9, 3.8521799786037607`*^9}},
+ CellLabel->
+  "In[417]:=",ExpressionUUID->"e6efe531-615e-4088-8000-0fe6ad3f6ddb"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"OuH\"\>", ",", "\<\"OdH\"\>", ",", "\<\"Ou(B,W,G)\"\>", 
+   ",", "\<\"Od(B,W,G)\"\>", ",", "\<\"OHq(1,3)\"\>", ",", "\<\"OHu\"\>", 
+   ",", "\<\"OHd\"\>", ",", "\<\"OHud\"\>", ",", "\<\"Oqq(1,3)\"\>", 
+   ",", "\<\"Ouu\"\>", ",", "\<\"Odd\"\>", ",", "\<\"Oud(1,8)\"\>", 
+   ",", "\<\"Oqu(1,8)\"\>", ",", "\<\"Oqd(1,8)\"\>", 
+   ",", "\<\"Oquqd(1,8)\"\>", ",", "\<\"OeH\"\>", ",", "\<\"Oe(B,W)\"\>", 
+   ",", "\<\"OHl(1,3)\"\>", ",", "\<\"OHe\"\>", ",", "\<\"Oll\"\>", 
+   ",", "\<\"Oee\"\>", ",", "\<\"Ole\"\>", ",", "\<\"Olq(1,3)\"\>", 
+   ",", "\<\"Oeu\"\>", ",", "\<\"Oed\"\>", ",", "\<\"Olu\"\>", 
+   ",", "\<\"Old\"\>", ",", "\<\"Oqe\"\>", ",", "\<\"Oledq\"\>", 
+   ",", "\<\"Olequ(1,3)\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.8521799788811073`*^9},
+ CellLabel->
+  "Out[417]=",ExpressionUUID->"cd85c6e9-f930-4883-8bc6-3496678149fa"]
+}, Open  ]],
+
+Cell["Details of a specific operator is found by e.g.", "Text",
+ CellChangeTimes->{{3.852179952034272*^9, 3.8521799532531223`*^9}, {
+  3.852179990702939*^9, 
+  3.8521800171684923`*^9}},ExpressionUUID->"71af6aba-a852-4535-9987-\
+638cce93e810"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"$smeftOperators", "@", "\"\<Olequ(1,3)\>\""}], "\n", 
+ RowBox[{"$smeftOperators", "@", "\"\<Oee\>\""}]}], "Input",
+ CellChangeTimes->{{3.8521799554635057`*^9, 3.852179956536426*^9}, {
+  3.852180018909759*^9, 3.852180028967545*^9}, {3.855770018605075*^9, 
+  3.855770018820223*^9}},
+ CellLabel->"In[10]:=",ExpressionUUID->"c55fa43d-aa54-4d6a-9723-98d21e608b00"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"Fields", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Bar", "[", "\<\"l\"\>", "]"}], ",", "\<\"e\"\>", ",", 
+      RowBox[{"Bar", "[", "\<\"q\"\>", "]"}], ",", "\<\"u\"\>"}], "}"}]}], 
+   ",", 
+   RowBox[{"UniqueHc", "\[Rule]", "True"}], ",", 
+   RowBox[{"Multiplicity", "\[Rule]", "2"}]}], 
+  "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{3.8521799568285303`*^9, 3.852180029711893*^9, 
+  3.855770019171906*^9},
+ CellLabel->"Out[10]=",ExpressionUUID->"ed7518e1-284a-434e-b965-6a4cecc62d7e"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"Fields", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"Bar", "[", "\<\"e\"\>", "]"}], ",", "\<\"e\"\>", ",", 
+      RowBox[{"Bar", "[", "\<\"e\"\>", "]"}], ",", "\<\"e\"\>"}], "}"}]}], 
+   ",", 
+   RowBox[{"PermutationSymmetries", "\[Rule]", 
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"{", 
+       RowBox[{"1", ",", "4", ",", "3", ",", "2"}], "}"}], ",", 
+      RowBox[{"{", 
+       RowBox[{"3", ",", "4", ",", "1", ",", "2"}], "}"}]}], "}"}]}], ",", 
+   RowBox[{"UniqueHc", "\[Rule]", "False"}]}], 
+  "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{3.8521799568285303`*^9, 3.852180029711893*^9, 
+  3.855770019173533*^9},
+ CellLabel->"Out[11]=",ExpressionUUID->"5583fdc2-f768-4f7e-a3b9-af3983b3716d"]
+}, Open  ]],
+
+Cell[TextData[{
+ StyleBox["Fields", "Input"],
+ " is the ordered list with the fermion fields of the operators. ",
+ StyleBox["UniqueHc", "Input"],
+ " indicates if the Hermitian conjugate is a different from the operator it \
+self (in the 1-flavor theory). ",
+ StyleBox["Multiplicity", "Input"],
+ " indicates how many SMEFT operators share the fermion field structure \
+(default 1). ",
+ StyleBox["PermutationSymmetry", "Input"],
+ " is a list of permutations of the fields, which gives the same operator. "
+}], "Text",
+ CellChangeTimes->{{3.855769758771014*^9, 
+  3.8557700124231243`*^9}},ExpressionUUID->"20001403-04c5-4033-9d44-\
+d16a9bcb0202"],
+
+Cell["For convenience certain operator sets are predefined: ", "Text",
+ CellChangeTimes->{{3.852180051163444*^9, 
+  3.852180075919303*^9}},ExpressionUUID->"c9594621-0551-44d8-8cee-\
+07af5d747086"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{"leptonicOperators", "\n", "quarkOperators", "\n", \
+"semiLeptonicOperators"}], "Input",
+ CellChangeTimes->{{3.852180077361322*^9, 3.852180082418202*^9}},
+ CellLabel->"In[12]:=",ExpressionUUID->"97e51716-fc54-4dd0-ab5b-02b863a17bba"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"OeH\"\>", ",", "\<\"Oe(B,W)\"\>", ",", "\<\"OHl(1,3)\"\>", 
+   ",", "\<\"OHe\"\>", ",", "\<\"Oll\"\>", ",", "\<\"Oee\"\>", 
+   ",", "\<\"Ole\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.852180082798514*^9, 3.855770027941104*^9},
+ CellLabel->"Out[12]=",ExpressionUUID->"709eed02-35d4-45d2-8cd1-617c8cb0f17d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"OuH\"\>", ",", "\<\"OdH\"\>", ",", "\<\"Ou(B,W,G)\"\>", 
+   ",", "\<\"Od(B,W,G)\"\>", ",", "\<\"OHq(1,3)\"\>", ",", "\<\"OHu\"\>", 
+   ",", "\<\"OHd\"\>", ",", "\<\"OHud\"\>", ",", "\<\"Oqq(1,3)\"\>", 
+   ",", "\<\"Ouu\"\>", ",", "\<\"Odd\"\>", ",", "\<\"Oud(1,8)\"\>", 
+   ",", "\<\"Oqu(1,8)\"\>", ",", "\<\"Oqd(1,8)\"\>", 
+   ",", "\<\"Oquqd(1,8)\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.852180082798514*^9, 3.855770027942935*^9},
+ CellLabel->"Out[13]=",ExpressionUUID->"12337ec3-b496-45b0-b8cf-e9548c6b9725"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"\<\"Olq(1,3)\"\>", ",", "\<\"Oeu\"\>", ",", "\<\"Oed\"\>", 
+   ",", "\<\"Olu\"\>", ",", "\<\"Old\"\>", ",", "\<\"Oqe\"\>", 
+   ",", "\<\"Oledq\"\>", ",", "\<\"Olequ(1,3)\"\>"}], "}"}]], "Output",
+ CellChangeTimes->{3.852180082798514*^9, 3.855770027944891*^9},
+ CellLabel->"Out[14]=",ExpressionUUID->"2e5611c3-22bc-4519-b1db-cf219d8acbd5"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["CountingTable", "Subsubsection",
+ CellChangeTimes->{{3.8521799226006193`*^9, 3.852179926698614*^9}, {
+  3.852180296653612*^9, 3.852180303363503*^9}, {3.852180730681777*^9, 
+  3.852180735374086*^9}},ExpressionUUID->"a751b4b4-7b8c-43bc-a489-\
+91d4f5538e5d"],
+
+Cell[TextData[{
+ "The functions to determine operator basis and counting has options which by \
+default are\n\t",
+ StyleBox["SpurionCount \[Rule] 3", "Input"],
+ ": sets the upper limit on the order of the spurion combinations to be \
+considered\n\t",
+ StyleBox["SMEFToperators \[Rule] All", "Input"],
+ ": if given a list of operators, only those operators are considered"
+}], "Text",
+ CellChangeTimes->{{3.852180388222382*^9, 
+  3.852180587298005*^9}},ExpressionUUID->"9b03a698-8558-4392-8f59-\
+c1350efb0470"],
+
+Cell[TextData[{
+ "The function constructing the counting tables for a symmetry is called ",
+ StyleBox["CountingTable[symmetry, opts]", "Input"],
+ ", and takes a name of a symmetry as  a mandatory argument. \nExamples of \
+how this works with various symmetries and options. "
+}], "Text",
+ CellChangeTimes->{{3.852180672451426*^9, 3.852180699655826*^9}, {
+  3.8521807465951433`*^9, 3.852180752943119*^9}, {3.85218092094746*^9, 
+  3.852181023900885*^9}},ExpressionUUID->"482ecdce-60c6-4967-9b86-\
+818ca3e39de7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CountingTable", "[", 
+  RowBox[{"\"\<lep:2U2\>\"", ",", 
+   RowBox[{"SpurionCount", "->", "1"}]}], "]"}]], "Input",
+ CellChangeTimes->{{3.852179653583714*^9, 3.852179656708375*^9}, {
+  3.852180608808271*^9, 3.8521806088628397`*^9}},
+ CellLabel->
+  "In[431]:=",ExpressionUUID->"b9de4177-d670-48be-9430-8c06194e5c90"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {"\<\"lep:2U2\"\>", "\[SpanFromLeft]", 
+     RowBox[{"\[ScriptCapitalO]", "[", "1", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", "Vl", "]"}]},
+    {"\<\"\\!\\(\\*SuperscriptBox[\\(\[Psi]\\), \
+\\(2\\)]\\)\\!\\(\\*SuperscriptBox[\\(H\\), \\(3\\)]\\)\"\>", "\<\"OeH\"\>", \
+"\<\"1\\t1\"\>", "\<\"1\\t1\"\>"},
+    {"\<\"\\!\\(\\*SuperscriptBox[\\(\[Psi]\\), \\(2\\)]\\)XH\"\>", \
+"\<\"Oe(B,W)\"\>", "\<\"2\\t2\"\>", "\<\"2\\t2\"\>"},
+    {"\<\"\\!\\(\\*SuperscriptBox[\\(\[Psi]\\), \
+\\(2\\)]\\)\\!\\(\\*SuperscriptBox[\\(H\\), \\(2\\)]\\)D\"\>", \
+"\<\"OHl(1,3)\"\>", "\<\"4\\t\"\>", "\<\"2\\t2\"\>"},
+    {"\[SpanFromAbove]", "\<\"OHe\"\>", "\<\"2\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"(LL)(LL)\"\>", "\<\"Oll\"\>", "\<\"5\\t\"\>", "\<\"3\\t3\"\>"},
+    {"\<\"(RR)(RR)\"\>", "\<\"Oee\"\>", "\<\"3\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"(LL)(RR)\"\>", "\<\"Ole\"\>", "\<\"4\\t\"\>", "\<\"2\\t2\"\>"},
+    {"\<\"Total\"\>", "\[SpanFromLeft]", "\<\"21\\t3\"\>", "\<\"10\\t10\"\>"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{
+  3.852179657252101*^9, {3.85218060476478*^9, 3.852180609139606*^9}},
+ CellLabel->
+  "Out[431]=",ExpressionUUID->"91ca92a2-7577-42a5-b103-52669e8a4f1a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CountingTable", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{"\"\<quark:3U2\>\"", ",", "\"\<lep:2U2\>\""}], "}"}], ",", 
+   RowBox[{"SpurionCount", "->", "1"}], ",", 
+   RowBox[{"SMEFToperators", "->", "semiLeptonicOperators"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.852180622531334*^9, 3.852180649712166*^9}},
+ CellLabel->
+  "In[433]:=",ExpressionUUID->"80ec6eeb-4312-4e23-919a-482369cffde7"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     RowBox[{"{", 
+      RowBox[{"\<\"quark:3U2\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], 
+     "\[SpanFromLeft]", 
+     RowBox[{"\[ScriptCapitalO]", "[", "1", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", "Vl", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", "Vq", "]"}]},
+    {"\<\"(LL)(LL)\"\>", "\<\"Olq(1,3)\"\>", "\<\"8\\t\"\>", "\<\"4\\t4\"\>", \
+"\<\"4\\t4\"\>"},
+    {"\<\"(RR)(RR)\"\>", "\<\"Oeu\"\>", "\<\"4\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oed\"\>", "\<\"4\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>"},
+    {"\<\"(LL)(RR)\"\>", "\<\"Olu\"\>", "\<\"4\\t\"\>", "\<\"2\\t2\"\>", \
+"\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Old\"\>", "\<\"4\\t\"\>", "\<\"2\\t2\"\>", \
+"\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oqe\"\>", "\<\"4\\t\"\>", "\<\"\\t\"\>", "\<\"2\
+\\t2\"\>"},
+    {"\<\"(LR)(LR)\"\>", "\<\"Olequ(1,3)\"\>", "\<\"2\\t2\"\>", \
+"\<\"2\\t2\"\>", "\<\"2\\t2\"\>"},
+    {"\<\"(LR)(RL)\"\>", "\<\"Oledq\"\>", "\<\"1\\t1\"\>", "\<\"1\\t1\"\>", "\
+\<\"1\\t1\"\>"},
+    {"\<\"Total\"\>", 
+     "\[SpanFromLeft]", "\<\"31\\t3\"\>", "\<\"11\\t11\"\>", "\<\"9\\t9\"\>"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{{3.8521806299465933`*^9, 3.852180651369926*^9}},
+ CellLabel->
+  "Out[433]=",ExpressionUUID->"c568f27f-b02d-47e4-a555-c2f5ef4094bf"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"CountingTable", "[", 
+  RowBox[{"{", 
+   RowBox[{"\"\<quark:MFV\>\"", ",", "\"\<lep:2U2\>\""}], "}"}], 
+  "]"}]], "Input",
+ CellChangeTimes->{
+  3.852180660348131*^9, {3.8521807565282*^9, 3.8521807583059177`*^9}},
+ CellLabel->
+  "In[435]:=",ExpressionUUID->"233caa22-0445-420b-b844-4a92c3764023"],
+
+Cell[BoxData[
+ TagBox[GridBox[{
+    {
+     RowBox[{"{", 
+      RowBox[{"\<\"quark:MFV\"\>", ",", "\<\"lep:2U2\"\>"}], "}"}], 
+     "\[SpanFromLeft]", 
+     RowBox[{"\[ScriptCapitalO]", "[", "1", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", "Vl", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", "Yu", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", "Yd", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", "\[CapitalDelta]e", "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      SuperscriptBox["Vl", "2"], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      RowBox[{"Vl", " ", "Yu"}], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      SuperscriptBox["Yu", "2"], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      RowBox[{"Vl", " ", "Yd"}], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      RowBox[{"Vl", " ", "\[CapitalDelta]e"}], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      RowBox[{"Yd", " ", "Yu"}], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      RowBox[{"Yu", " ", "\[CapitalDelta]e"}], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      SuperscriptBox["Vl", "3"], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      RowBox[{"Vl", " ", 
+       SuperscriptBox["Yu", "2"]}], "]"}], 
+     RowBox[{"\[ScriptCapitalO]", "[", 
+      SuperscriptBox["Yu", "3"], "]"}]},
+    {"\<\"\\!\\(\\*SuperscriptBox[\\(\[Psi]\\), \
+\\(2\\)]\\)\\!\\(\\*SuperscriptBox[\\(H\\), \\(3\\)]\\)\"\>", "\<\"OuH\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>"},
+    {"\[SpanFromAbove]", "\<\"OdH\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"OeH\"\>", "\<\"1\\t1\"\>", "\<\"1\\t1\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"\\!\\(\\*SuperscriptBox[\\(\[Psi]\\), \\(2\\)]\\)XH\"\>", \
+"\<\"Ou(B,W,G)\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"3\\t3\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"3\\t3\"\>"},
+    {"\[SpanFromAbove]", "\<\"Od(B,W,G)\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\
+\<\"\\t\"\>", "\<\"3\\t3\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\
+\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oe(B,W)\"\>", "\<\"2\\t2\"\>", "\<\"2\\t2\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"\\!\\(\\*SuperscriptBox[\\(\[Psi]\\), \
+\\(2\\)]\\)\\!\\(\\*SuperscriptBox[\\(H\\), \\(2\\)]\\)D\"\>", \
+"\<\"OHq(1,3)\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\
+\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\
+\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"OHu\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"OHd\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"OHud\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"OHl(1,3)\"\>", "\<\"4\\t\"\>", "\<\"2\\t2\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"2\\t\"\>", "\<\"\\t\"\>", "\
+\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"OHe\"\>", "\<\"2\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"(LL)(LL)\"\>", "\<\"Oqq(1,3)\"\>", "\<\"4\\t4\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"4\\t4\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oll\"\>", "\<\"5\\t\"\>", "\<\"3\\t3\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"5\\t1\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Olq(1,3)\"\>", "\<\"4\\t4\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"4\\t4\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"2\\t2\"\>", \
+"\<\"\\t\"\>"},
+    {"\<\"(RR)(RR)\"\>", "\<\"Ouu\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Odd\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oud(1,8)\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oee\"\>", "\<\"3\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oeu\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oed\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"(LL)(RR)\"\>", "\<\"Oqu(1,8)\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"6\\t6\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oqd(1,8)\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Ole\"\>", "\<\"4\\t\"\>", "\<\"2\\t2\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"2\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"3\\t3\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Olu\"\>", "\<\"2\\t2\"\>", "\<\"1\\t1\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\
+\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\
+\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Old\"\>", "\<\"2\\t2\"\>", "\<\"1\\t1\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\
+\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Oqe\"\>", "\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"(LR)(LR)\"\>", "\<\"Oquqd(1,8)\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"4\\t4\"\>", "\<\"\\t\"\>", \
+"\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\[SpanFromAbove]", "\<\"Olequ(1,3)\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", \
+"\<\"2\\t2\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"2\\t2\"\>"},
+    {"\<\"(LR)(RL)\"\>", "\<\"Oledq\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"1\\t1\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>", "\<\"\
+\\t\"\>", "\<\"\\t\"\>", "\<\"\\t\"\>"},
+    {"\<\"Total\"\>", 
+     "\[SpanFromLeft]", "\<\"53\\t35\"\>", "\<\"14\\t14\"\>", \
+"\<\"6\\t6\"\>", "\<\"5\\t5\"\>", "\<\"4\\t4\"\>", "\<\"13\\t5\"\>", \
+"\<\"2\\t2\"\>", "\<\"29\\t29\"\>", "\<\"1\\t1\"\>", "\<\"12\\t12\"\>", \
+"\<\"5\\t5\"\>", "\<\"2\\t2\"\>", "\<\"1\\t1\"\>", "\<\"3\\t3\"\>", \
+"\<\"6\\t6\"\>"}
+   },
+   AutoDelete->False,
+   GridBoxDividers->{"Columns" -> {{True}}, "Rows" -> {{True}}},
+   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
+  "Grid"]], "Output",
+ CellChangeTimes->{3.852180661378504*^9, 3.8521807591150217`*^9},
+ CellLabel->
+  "Out[435]=",ExpressionUUID->"00b07368-890e-41c4-85f2-b15687a5cf20"]
+}, Open  ]]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["DetermineOperatorBasis", "Subsubsection",
+ CellChangeTimes->{{3.852179723605695*^9, 3.852179725816638*^9}, {
+  3.8521808149813623`*^9, 
+  3.852180838049972*^9}},ExpressionUUID->"09dc94f8-a6b6-4688-8b1b-\
+a1e964e0b49e"],
+
+Cell[TextData[{
+ StyleBox["DetermineOperatorBasis[symmetry, opts]", "Input"],
+ "  takes the name of a symmetry as argument. It also has the options ",
+ StyleBox["SpurionCount", "Input"],
+ " and ",
+ StyleBox["SMEFToperators", "Input"],
+ ". It returns an association with the explicit form of all operators \
+organized by SMEFT operator and Spurion content. E.g."
+}], "Text",
+ CellChangeTimes->{{3.852180840392954*^9, 3.852180842795854*^9}, {
+  3.8521808778589907`*^9, 3.852180906952952*^9}, {3.852181035955462*^9, 
+  3.8521811691705637`*^9}, {3.8521812972758417`*^9, 
+  3.852181346060087*^9}},ExpressionUUID->"0fe95c29-9834-45c6-b16e-\
+bb2e27e720f7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"basis", "=", 
+  RowBox[{"DetermineOperatorBasis", "[", 
+   RowBox[{"\"\<lep:2U2\>\"", ",", 
+    RowBox[{"SpurionCount", "->", "1"}], ",", 
+    RowBox[{"SMEFToperators", "->", "leptonicOperators"}]}], "]"}]}]], "Input",\
+
+ CellChangeTimes->{{3.852180818122632*^9, 3.852180868943218*^9}, {
+  3.852181369999629*^9, 3.852181375580202*^9}, {3.852181511510921*^9, 
+  3.852181514133346*^9}},
+ CellLabel->
+  "In[501]:=",ExpressionUUID->"8520e81a-89e2-4111-be44-3113bbb7d1bc"],
+
+Cell[BoxData[
+ RowBox[{"\[LeftAssociation]", 
+  RowBox[{
+   RowBox[{"\<\"OeH\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Spur", "[", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"PlusHc", "[", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "e3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], "}"}]}], ",", 
+      RowBox[{
+       RowBox[{"Spur", "[", "Vl", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"PlusHc", "[", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", "e3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", 
+            RowBox[{"Vl", "[", 
+             RowBox[{"Index", "[", 
+              RowBox[{
+               RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}], 
+            "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"\<\"Oe(B,W)\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Spur", "[", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"PlusHc", "[", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "e3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], "}"}]}], ",", 
+      RowBox[{
+       RowBox[{"Spur", "[", "Vl", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"PlusHc", "[", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", "e3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", 
+            RowBox[{"Vl", "[", 
+             RowBox[{"Index", "[", 
+              RowBox[{
+               RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}], 
+            "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"\<\"OHl(1,3)\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Spur", "[", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], 
+              "]"}]}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "l3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}]}], "}"}]}], ",", 
+      RowBox[{
+       RowBox[{"Spur", "[", "Vl", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{"PlusHc", "[", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", "l3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", 
+            RowBox[{"Vl", "[", 
+             RowBox[{"Index", "[", 
+              RowBox[{
+               RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}], 
+            "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"\<\"OHe\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"Spur", "[", "]"}], "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Operator", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Bar", "[", 
+             RowBox[{"e12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"Bar", "[", 
+                 RowBox[{"U2e", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+               "]"}], "]"}], "]"}], ",", 
+            RowBox[{"e12", "[", 
+             RowBox[{"Index", "[", 
+              RowBox[{
+               RowBox[{"U2e", "[", "fund", "]"}], ",", "$d2"}], "]"}], 
+             "]"}]}], "}"}], ",", 
+          RowBox[{"Spur", "[", "]"}], ",", 
+          RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+        RowBox[{"Operator", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Bar", "[", "e3", "]"}], ",", "e3"}], "}"}], ",", 
+          RowBox[{"Spur", "[", "]"}], ",", 
+          RowBox[{"CGs", "[", "]"}]}], "]"}]}], "}"}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"\<\"Oll\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Spur", "[", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}],
+              ",", 
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d4"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d4"}], "]"}], 
+              "]"}]}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d4"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d3"}], "]"}], "]"}],
+              ",", 
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d3"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d4"}], "]"}], 
+              "]"}]}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}],
+              ",", 
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "l3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", "l3", "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}],
+              ",", 
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", "l3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "l3", ",", 
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "l3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}]}], "}"}]}], ",", 
+      RowBox[{
+       RowBox[{"Spur", "[", "Vl", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"PlusHc", "[", 
+          RowBox[{"Operator", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Bar", "[", 
+               RowBox[{"l12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                 "]"}], "]"}], "]"}], ",", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], 
+               "]"}], ",", 
+              RowBox[{"Bar", "[", 
+               RowBox[{"l12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d4"}], 
+                 "]"}], "]"}], "]"}], ",", "l3"}], "}"}], ",", 
+            RowBox[{"Spur", "[", 
+             RowBox[{"Vl", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d4"}], "]"}], "]"}],
+              "]"}], ",", 
+            RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], ",", 
+         RowBox[{"PlusHc", "[", 
+          RowBox[{"Operator", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Bar", "[", 
+               RowBox[{"l12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d4"}], 
+                 "]"}], "]"}], "]"}], ",", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"U2l", "[", "fund", "]"}], ",", "$d3"}], "]"}], 
+               "]"}], ",", 
+              RowBox[{"Bar", "[", 
+               RowBox[{"l12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d3"}], 
+                 "]"}], "]"}], "]"}], ",", "l3"}], "}"}], ",", 
+            RowBox[{"Spur", "[", 
+             RowBox[{"Vl", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d4"}], "]"}], "]"}],
+              "]"}], ",", 
+            RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], ",", 
+         RowBox[{"PlusHc", "[", 
+          RowBox[{"Operator", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Bar", "[", 
+               RowBox[{"l12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                 "]"}], "]"}], "]"}], ",", "l3", ",", 
+              RowBox[{"Bar", "[", "l3", "]"}], ",", "l3"}], "}"}], ",", 
+            RowBox[{"Spur", "[", 
+             RowBox[{"Vl", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}],
+              "]"}], ",", 
+            RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}]}], "}"}]}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"\<\"Oee\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{"Spur", "[", "]"}], "\[Rule]", 
+      RowBox[{"{", 
+       RowBox[{
+        RowBox[{"Operator", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Bar", "[", 
+             RowBox[{"e12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"Bar", "[", 
+                 RowBox[{"U2e", "[", "fund", "]"}], "]"}], ",", "$d4"}], 
+               "]"}], "]"}], "]"}], ",", 
+            RowBox[{"e12", "[", 
+             RowBox[{"Index", "[", 
+              RowBox[{
+               RowBox[{"U2e", "[", "fund", "]"}], ",", "$d3"}], "]"}], "]"}], 
+            ",", 
+            RowBox[{"Bar", "[", 
+             RowBox[{"e12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"Bar", "[", 
+                 RowBox[{"U2e", "[", "fund", "]"}], "]"}], ",", "$d3"}], 
+               "]"}], "]"}], "]"}], ",", 
+            RowBox[{"e12", "[", 
+             RowBox[{"Index", "[", 
+              RowBox[{
+               RowBox[{"U2e", "[", "fund", "]"}], ",", "$d4"}], "]"}], 
+             "]"}]}], "}"}], ",", 
+          RowBox[{"Spur", "[", "]"}], ",", 
+          RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+        RowBox[{"Operator", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Bar", "[", 
+             RowBox[{"e12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"Bar", "[", 
+                 RowBox[{"U2e", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+               "]"}], "]"}], "]"}], ",", 
+            RowBox[{"e12", "[", 
+             RowBox[{"Index", "[", 
+              RowBox[{
+               RowBox[{"U2e", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}], 
+            ",", 
+            RowBox[{"Bar", "[", "e3", "]"}], ",", "e3"}], "}"}], ",", 
+          RowBox[{"Spur", "[", "]"}], ",", 
+          RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+        RowBox[{"Operator", "[", 
+         RowBox[{
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"Bar", "[", "e3", "]"}], ",", "e3", ",", 
+            RowBox[{"Bar", "[", "e3", "]"}], ",", "e3"}], "}"}], ",", 
+          RowBox[{"Spur", "[", "]"}], ",", 
+          RowBox[{"CGs", "[", "]"}]}], "]"}]}], "}"}]}], 
+     "\[RightAssociation]"}]}], ",", 
+   RowBox[{"\<\"Ole\"\>", "\[Rule]", 
+    RowBox[{"\[LeftAssociation]", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Spur", "[", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}],
+              ",", 
+             RowBox[{"Bar", "[", 
+              RowBox[{"e12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2e", "[", "fund", "]"}], "]"}], ",", "$d4"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"e12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2e", "[", "fund", "]"}], ",", "$d4"}], "]"}], 
+              "]"}]}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", 
+              RowBox[{"l12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"l12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}],
+              ",", 
+             RowBox[{"Bar", "[", "e3", "]"}], ",", "e3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "l3", ",", 
+             RowBox[{"Bar", "[", 
+              RowBox[{"e12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"Bar", "[", 
+                  RowBox[{"U2e", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                "]"}], "]"}], "]"}], ",", 
+             RowBox[{"e12", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2e", "[", "fund", "]"}], ",", "$d2"}], "]"}], 
+              "]"}]}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}], ",", 
+         RowBox[{"Operator", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"Bar", "[", "l3", "]"}], ",", "l3", ",", 
+             RowBox[{"Bar", "[", "e3", "]"}], ",", "e3"}], "}"}], ",", 
+           RowBox[{"Spur", "[", "]"}], ",", 
+           RowBox[{"CGs", "[", "]"}]}], "]"}]}], "}"}]}], ",", 
+      RowBox[{
+       RowBox[{"Spur", "[", "Vl", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         RowBox[{"PlusHc", "[", 
+          RowBox[{"Operator", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Bar", "[", 
+               RowBox[{"l12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d4"}], 
+                 "]"}], "]"}], "]"}], ",", "l3", ",", 
+              RowBox[{"Bar", "[", 
+               RowBox[{"e12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2e", "[", "fund", "]"}], "]"}], ",", "$d3"}], 
+                 "]"}], "]"}], "]"}], ",", 
+              RowBox[{"e12", "[", 
+               RowBox[{"Index", "[", 
+                RowBox[{
+                 RowBox[{"U2e", "[", "fund", "]"}], ",", "$d3"}], "]"}], 
+               "]"}]}], "}"}], ",", 
+            RowBox[{"Spur", "[", 
+             RowBox[{"Vl", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d4"}], "]"}], "]"}],
+              "]"}], ",", 
+            RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}], ",", 
+         RowBox[{"PlusHc", "[", 
+          RowBox[{"Operator", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"Bar", "[", 
+               RowBox[{"l12", "[", 
+                RowBox[{"Index", "[", 
+                 RowBox[{
+                  RowBox[{"Bar", "[", 
+                   RowBox[{"U2l", "[", "fund", "]"}], "]"}], ",", "$d2"}], 
+                 "]"}], "]"}], "]"}], ",", "l3", ",", 
+              RowBox[{"Bar", "[", "e3", "]"}], ",", "e3"}], "}"}], ",", 
+            RowBox[{"Spur", "[", 
+             RowBox[{"Vl", "[", 
+              RowBox[{"Index", "[", 
+               RowBox[{
+                RowBox[{"U2l", "[", "fund", "]"}], ",", "$d2"}], "]"}], "]"}],
+              "]"}], ",", 
+            RowBox[{"CGs", "[", "]"}]}], "]"}], "]"}]}], "}"}]}]}], 
+     "\[RightAssociation]"}]}]}], "\[RightAssociation]"}]], "Output",
+ CellChangeTimes->{{3.8521808326067467`*^9, 3.852180869341155*^9}, 
+   3.852181375963026*^9, 3.8521815145303087`*^9, 3.852280967799451*^9},
+ CellLabel->
+  "Out[501]=",ExpressionUUID->"0124839b-90ee-4c20-81eb-2822adbb9a0d"]
+}, Open  ]],
+
+Cell[TextData[{
+ "To make the operators more legible ",
+ StyleBox["OpForm", "Input"],
+ " is an output form, which prints the operators in format better suited for \
+a quick overview "
+}], "Text",
+ CellChangeTimes->{{3.852181383830413*^9, 3.85218145196766*^9}, {
+  3.852181486143351*^9, 
+  3.852181497117751*^9}},ExpressionUUID->"c1c1adca-56fb-4e2c-bd66-\
+9326d7d0991e"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"basis", "//", "OpForm"}]], "Input",
+ CellChangeTimes->{{3.8521814605416517`*^9, 3.852181461819448*^9}, {
+  3.852181520721477*^9, 3.8521815211565027`*^9}},
+ CellLabel->
+  "In[502]:=",ExpressionUUID->"66f583e1-d6aa-4108-a933-7f165f52fef1"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"\[LeftAssociation]", 
+   RowBox[{
+    RowBox[{
+     FormBox["OeH",
+      StandardForm], "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         FormBox[
+          TagBox[
+           TagBox[
+            FormBox[
+             RowBox[{"(", 
+              RowBox[{
+               FormBox[
+                RowBox[{
+                 FormBox["Operator",
+                  StandardForm], "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l3",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], ",", 
+                    FormBox["e3",
+                    StandardForm]}], "}"}], ",", 
+                   RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", "]"}], ",", 
+                   RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                $CellContext`OpForm], " ", "+", " ", 
+               RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+             $CellContext`OpForm],
+            Format[#, $CellContext`OpForm]& ],
+           DisplayForm],
+          $CellContext`OpForm], "}"}]}], ",", 
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", 
+         FormBox["Vl",
+          StandardForm], "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         FormBox[
+          TagBox[
+           TagBox[
+            FormBox[
+             RowBox[{"(", 
+              RowBox[{
+               FormBox[
+                RowBox[{
+                 FormBox["Operator",
+                  StandardForm], "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["e3",
+                    StandardForm]}], "}"}], ",", 
+                   RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                   RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                $CellContext`OpForm], " ", "+", " ", 
+               RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+             $CellContext`OpForm],
+            Format[#, $CellContext`OpForm]& ],
+           DisplayForm],
+          $CellContext`OpForm], "}"}]}]}], "\[RightAssociation]"}]}], ",", 
+    RowBox[{
+     FormBox[
+      RowBox[{"Oe", 
+       RowBox[{"(", 
+        RowBox[{"B", ",", "W"}], ")"}]}],
+      StandardForm], "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         FormBox[
+          TagBox[
+           TagBox[
+            FormBox[
+             RowBox[{"(", 
+              RowBox[{
+               FormBox[
+                RowBox[{
+                 FormBox["Operator",
+                  StandardForm], "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l3",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], ",", 
+                    FormBox["e3",
+                    StandardForm]}], "}"}], ",", 
+                   RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", "]"}], ",", 
+                   RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                $CellContext`OpForm], " ", "+", " ", 
+               RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+             $CellContext`OpForm],
+            Format[#, $CellContext`OpForm]& ],
+           DisplayForm],
+          $CellContext`OpForm], "}"}]}], ",", 
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", 
+         FormBox["Vl",
+          StandardForm], "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         FormBox[
+          TagBox[
+           TagBox[
+            FormBox[
+             RowBox[{"(", 
+              RowBox[{
+               FormBox[
+                RowBox[{
+                 FormBox["Operator",
+                  StandardForm], "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["e3",
+                    StandardForm]}], "}"}], ",", 
+                   RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                   RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                $CellContext`OpForm], " ", "+", " ", 
+               RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+             $CellContext`OpForm],
+            Format[#, $CellContext`OpForm]& ],
+           DisplayForm],
+          $CellContext`OpForm], "}"}]}]}], "\[RightAssociation]"}]}], ",", 
+    RowBox[{
+     FormBox[
+      RowBox[{"OHl", 
+       RowBox[{"(", 
+        RowBox[{"1", ",", "3"}], ")"}]}],
+      StandardForm], "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm]}], "}"}]}], ",", 
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", 
+         FormBox["Vl",
+          StandardForm], "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         FormBox[
+          TagBox[
+           TagBox[
+            FormBox[
+             RowBox[{"(", 
+              RowBox[{
+               FormBox[
+                RowBox[{
+                 FormBox["Operator",
+                  StandardForm], "[", 
+                 RowBox[{"{", 
+                  RowBox[{
+                   RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["l3",
+                    StandardForm]}], "}"}], ",", 
+                   RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                   RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                $CellContext`OpForm], " ", "+", " ", 
+               RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+             $CellContext`OpForm],
+            Format[#, $CellContext`OpForm]& ],
+           DisplayForm],
+          $CellContext`OpForm], "}"}]}]}], "\[RightAssociation]"}]}], ",", 
+    RowBox[{
+     FormBox["OHe",
+      StandardForm], "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{
+        FormBox["Spur",
+         StandardForm], "[", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         FormBox[
+          RowBox[{
+           FormBox["Operator",
+            StandardForm], "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               FormBox[
+                SubscriptBox[
+                 FormBox[
+                  OverscriptBox[
+                   FormBox["e12",
+                    StandardForm], "_"],
+                  $CellContext`OpForm], 
+                 StyleBox[
+                  TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                   "RowDefault"],
+                  StripOnInput->False,
+                  FontSize->12]],
+                $CellContext`OpForm], ",", 
+               FormBox[
+                TemplateBox[{
+                  FormBox[
+                   RowBox[{"e12"}], StandardForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                   FontSize -> 12, StripOnInput -> False]},
+                 "Superscript"],
+                $CellContext`OpForm]}], "}"}], ",", 
+             RowBox[{
+              FormBox["Spur",
+               StandardForm], "[", "]"}], ",", 
+             RowBox[{
+              FormBox["CGs",
+               StandardForm], "[", "]"}]}], "}"}], "]"}],
+          $CellContext`OpForm], ",", 
+         FormBox[
+          RowBox[{
+           FormBox["Operator",
+            StandardForm], "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               FormBox[
+                OverscriptBox[
+                 FormBox["e3",
+                  StandardForm], "_"],
+                $CellContext`OpForm], ",", 
+               FormBox["e3",
+                StandardForm]}], "}"}], ",", 
+             RowBox[{
+              FormBox["Spur",
+               StandardForm], "[", "]"}], ",", 
+             RowBox[{
+              FormBox["CGs",
+               StandardForm], "[", "]"}]}], "}"}], "]"}],
+          $CellContext`OpForm]}], "}"}]}], "\[RightAssociation]"}]}], ",", 
+    RowBox[{
+     FormBox["Oll",
+      StandardForm], "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm], ",", 
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm]}], "}"}]}], ",", 
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", 
+         FormBox["Vl",
+          StandardForm], "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          FormBox[
+           TagBox[
+            TagBox[
+             FormBox[
+              RowBox[{"(", 
+               RowBox[{
+                FormBox[
+                 RowBox[{
+                  FormBox["Operator",
+                   StandardForm], "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], ",", 
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["l3",
+                    StandardForm]}], "}"}], ",", 
+                    RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                    RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                 $CellContext`OpForm], " ", "+", " ", 
+                RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+              $CellContext`OpForm],
+             Format[#, $CellContext`OpForm]& ],
+            DisplayForm],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           TagBox[
+            TagBox[
+             FormBox[
+              RowBox[{"(", 
+               RowBox[{
+                FormBox[
+                 RowBox[{
+                  FormBox["Operator",
+                   StandardForm], "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], ",", 
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["l3",
+                    StandardForm]}], "}"}], ",", 
+                    RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                    RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                 $CellContext`OpForm], " ", "+", " ", 
+                RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+              $CellContext`OpForm],
+             Format[#, $CellContext`OpForm]& ],
+            DisplayForm],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           TagBox[
+            TagBox[
+             FormBox[
+              RowBox[{"(", 
+               RowBox[{
+                FormBox[
+                 RowBox[{
+                  FormBox["Operator",
+                   StandardForm], "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["l3",
+                    StandardForm], ",", 
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l3",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], ",", 
+                    FormBox["l3",
+                    StandardForm]}], "}"}], ",", 
+                    RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                    RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                 $CellContext`OpForm], " ", "+", " ", 
+                RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+              $CellContext`OpForm],
+             Format[#, $CellContext`OpForm]& ],
+            DisplayForm],
+           $CellContext`OpForm]}], "}"}]}]}], "\[RightAssociation]"}]}], ",", 
+    
+    RowBox[{
+     FormBox["Oee",
+      StandardForm], "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{
+        FormBox["Spur",
+         StandardForm], "[", "]"}], "\[Rule]", 
+       RowBox[{"{", 
+        RowBox[{
+         FormBox[
+          RowBox[{
+           FormBox["Operator",
+            StandardForm], "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               FormBox[
+                SubscriptBox[
+                 FormBox[
+                  OverscriptBox[
+                   FormBox["e12",
+                    StandardForm], "_"],
+                  $CellContext`OpForm], 
+                 StyleBox[
+                  TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                   "RowDefault"],
+                  StripOnInput->False,
+                  FontSize->12]],
+                $CellContext`OpForm], ",", 
+               FormBox[
+                TemplateBox[{
+                  FormBox[
+                   RowBox[{"e12"}], StandardForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                   FontSize -> 12, StripOnInput -> False]},
+                 "Superscript"],
+                $CellContext`OpForm], ",", 
+               FormBox[
+                SubscriptBox[
+                 FormBox[
+                  OverscriptBox[
+                   FormBox["e12",
+                    StandardForm], "_"],
+                  $CellContext`OpForm], 
+                 StyleBox[
+                  TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                   "RowDefault"],
+                  StripOnInput->False,
+                  FontSize->12]],
+                $CellContext`OpForm], ",", 
+               FormBox[
+                TemplateBox[{
+                  FormBox[
+                   RowBox[{"e12"}], StandardForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                   FontSize -> 12, StripOnInput -> False]},
+                 "Superscript"],
+                $CellContext`OpForm]}], "}"}], ",", 
+             RowBox[{
+              FormBox["Spur",
+               StandardForm], "[", "]"}], ",", 
+             RowBox[{
+              FormBox["CGs",
+               StandardForm], "[", "]"}]}], "}"}], "]"}],
+          $CellContext`OpForm], ",", 
+         FormBox[
+          RowBox[{
+           FormBox["Operator",
+            StandardForm], "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               FormBox[
+                SubscriptBox[
+                 FormBox[
+                  OverscriptBox[
+                   FormBox["e12",
+                    StandardForm], "_"],
+                  $CellContext`OpForm], 
+                 StyleBox[
+                  TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                   "RowDefault"],
+                  StripOnInput->False,
+                  FontSize->12]],
+                $CellContext`OpForm], ",", 
+               FormBox[
+                TemplateBox[{
+                  FormBox[
+                   RowBox[{"e12"}], StandardForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                   FontSize -> 12, StripOnInput -> False]},
+                 "Superscript"],
+                $CellContext`OpForm], ",", 
+               FormBox[
+                OverscriptBox[
+                 FormBox["e3",
+                  StandardForm], "_"],
+                $CellContext`OpForm], ",", 
+               FormBox["e3",
+                StandardForm]}], "}"}], ",", 
+             RowBox[{
+              FormBox["Spur",
+               StandardForm], "[", "]"}], ",", 
+             RowBox[{
+              FormBox["CGs",
+               StandardForm], "[", "]"}]}], "}"}], "]"}],
+          $CellContext`OpForm], ",", 
+         FormBox[
+          RowBox[{
+           FormBox["Operator",
+            StandardForm], "[", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{
+               FormBox[
+                OverscriptBox[
+                 FormBox["e3",
+                  StandardForm], "_"],
+                $CellContext`OpForm], ",", 
+               FormBox["e3",
+                StandardForm], ",", 
+               FormBox[
+                OverscriptBox[
+                 FormBox["e3",
+                  StandardForm], "_"],
+                $CellContext`OpForm], ",", 
+               FormBox["e3",
+                StandardForm]}], "}"}], ",", 
+             RowBox[{
+              FormBox["Spur",
+               StandardForm], "[", "]"}], ",", 
+             RowBox[{
+              FormBox["CGs",
+               StandardForm], "[", "]"}]}], "}"}], "]"}],
+          $CellContext`OpForm]}], "}"}]}], "\[RightAssociation]"}]}], ",", 
+    RowBox[{
+     FormBox["Ole",
+      StandardForm], "\[Rule]", 
+     RowBox[{"\[LeftAssociation]", 
+      RowBox[{
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["e12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"e12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 OverscriptBox[
+                  FormBox["e3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["e3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm], ",", 
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["e12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"e12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm], ",", 
+                FormBox[
+                 OverscriptBox[
+                  FormBox["e3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["e3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm]}], "}"}]}], ",", 
+       RowBox[{
+        RowBox[{
+         FormBox["Spur",
+          StandardForm], "[", 
+         FormBox["Vl",
+          StandardForm], "]"}], "\[Rule]", 
+        RowBox[{"{", 
+         RowBox[{
+          FormBox[
+           TagBox[
+            TagBox[
+             FormBox[
+              RowBox[{"(", 
+               RowBox[{
+                FormBox[
+                 RowBox[{
+                  FormBox["Operator",
+                   StandardForm], "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["l3",
+                    StandardForm], ",", 
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["e12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"e12"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm]}], "}"}], ",", 
+                    RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                    RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                 $CellContext`OpForm], " ", "+", " ", 
+                RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+              $CellContext`OpForm],
+             Format[#, $CellContext`OpForm]& ],
+            DisplayForm],
+           $CellContext`OpForm], ",", 
+          FormBox[
+           TagBox[
+            TagBox[
+             FormBox[
+              RowBox[{"(", 
+               RowBox[{
+                FormBox[
+                 RowBox[{
+                  FormBox["Operator",
+                   StandardForm], "[", 
+                  RowBox[{"{", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    FormBox[
+                    SubscriptBox[
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                    StripOnInput->False,
+                    FontSize->12]],
+                    $CellContext`OpForm], ",", 
+                    FormBox["l3",
+                    StandardForm], ",", 
+                    FormBox[
+                    OverscriptBox[
+                    FormBox["e3",
+                    StandardForm], "_"],
+                    $CellContext`OpForm], ",", 
+                    FormBox["e3",
+                    StandardForm]}], "}"}], ",", 
+                    RowBox[{
+                    FormBox["Spur",
+                    StandardForm], "[", 
+                    FormBox[
+                    TemplateBox[{
+                    FormBox[
+                    RowBox[{"Vl"}], StandardForm], 
+                    StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                    "Superscript"],
+                    $CellContext`OpForm], "]"}], ",", 
+                    RowBox[{
+                    FormBox["CGs",
+                    StandardForm], "[", "]"}]}], "}"}], "]"}],
+                 $CellContext`OpForm], " ", "+", " ", 
+                RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+              $CellContext`OpForm],
+             Format[#, $CellContext`OpForm]& ],
+            DisplayForm],
+           $CellContext`OpForm]}], "}"}]}]}], "\[RightAssociation]"}]}]}], 
+   "\[RightAssociation]"}], $CellContext`OpForm]], "Output",
+ CellChangeTimes->{3.852181462152053*^9, 3.852181521673052*^9, 
+  3.852280969685732*^9},
+ CellLabel->
+  "Out[502]//OpForm=",ExpressionUUID->"c2ee70b3-6547-4faa-a0e6-d104ed423a32"]
+}, Open  ]],
+
+Cell["\<\
+Finally, individual operator sets can be extracted from the association in \
+the usual manner, e.g.\
+\>", "Text",
+ CellChangeTimes->{{3.852181501101007*^9, 
+  3.8521815626341267`*^9}},ExpressionUUID->"2a9ccb7e-5a27-459d-928e-\
+30208359cfba"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"basis", "[", 
+   RowBox[{"\"\<Oll\>\"", ",", 
+    RowBox[{"Spur", "[", "Vl", "]"}]}], "]"}], "//", "OpForm"}]], "Input",
+ CellChangeTimes->{{3.8521815670611057`*^9, 3.852181583917931*^9}},
+ CellLabel->
+  "In[503]:=",ExpressionUUID->"097e2bce-1601-43d3-9e16-a99690db7528"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"{", 
+   RowBox[{
+    FormBox[
+     TagBox[
+      TagBox[
+       FormBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", 
+               FormBox[
+                TemplateBox[{
+                  FormBox[
+                   RowBox[{"Vl"}], StandardForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                   FontSize -> 12, StripOnInput -> False]},
+                 "Superscript"],
+                $CellContext`OpForm], "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], " ", "+", " ", 
+          RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+        $CellContext`OpForm],
+       Format[#, $CellContext`OpForm]& ],
+      DisplayForm],
+     $CellContext`OpForm], ",", 
+    FormBox[
+     TagBox[
+      TagBox[
+       FormBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 TemplateBox[{
+                   FormBox[
+                    RowBox[{"l12"}], StandardForm], 
+                   StyleBox[
+                    TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                    FontSize -> 12, StripOnInput -> False]},
+                  "Superscript"],
+                 $CellContext`OpForm], ",", 
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"b"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", 
+               FormBox[
+                TemplateBox[{
+                  FormBox[
+                   RowBox[{"Vl"}], StandardForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                   FontSize -> 12, StripOnInput -> False]},
+                 "Superscript"],
+                $CellContext`OpForm], "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], " ", "+", " ", 
+          RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+        $CellContext`OpForm],
+       Format[#, $CellContext`OpForm]& ],
+      DisplayForm],
+     $CellContext`OpForm], ",", 
+    FormBox[
+     TagBox[
+      TagBox[
+       FormBox[
+        RowBox[{"(", 
+         RowBox[{
+          FormBox[
+           RowBox[{
+            FormBox["Operator",
+             StandardForm], "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                FormBox[
+                 SubscriptBox[
+                  FormBox[
+                   OverscriptBox[
+                    FormBox["l12",
+                    StandardForm], "_"],
+                   $CellContext`OpForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]},
+                    "RowDefault"],
+                   StripOnInput->False,
+                   FontSize->12]],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm], ",", 
+                FormBox[
+                 OverscriptBox[
+                  FormBox["l3",
+                   StandardForm], "_"],
+                 $CellContext`OpForm], ",", 
+                FormBox["l3",
+                 StandardForm]}], "}"}], ",", 
+              RowBox[{
+               FormBox["Spur",
+                StandardForm], "[", 
+               FormBox[
+                TemplateBox[{
+                  FormBox[
+                   RowBox[{"Vl"}], StandardForm], 
+                  StyleBox[
+                   TemplateBox[{
+                    TagBox[
+                    FormBox[
+                    FormBox[
+                    FormBox[
+                    RowBox[{"a"}], 
+                    StandardForm], $CellContext`OpForm], $CellContext`OpForm],
+                     Format[#, $CellContext`OpForm]& ]}, "RowDefault"], 
+                   FontSize -> 12, StripOnInput -> False]},
+                 "Superscript"],
+                $CellContext`OpForm], "]"}], ",", 
+              RowBox[{
+               FormBox["CGs",
+                StandardForm], "[", "]"}]}], "}"}], "]"}],
+           $CellContext`OpForm], " ", "+", " ", 
+          RowBox[{"H", ".", "c", "."}]}], " ", ")"}],
+        $CellContext`OpForm],
+       Format[#, $CellContext`OpForm]& ],
+      DisplayForm],
+     $CellContext`OpForm]}], "}"}], $CellContext`OpForm]], "Output",
+ CellChangeTimes->{3.852181584233961*^9, 3.852280971813591*^9},
+ CellLabel->
+  "Out[503]//OpForm=",ExpressionUUID->"cec26959-d7ef-4faa-803e-18e24f60dd75"]
+}, Open  ]],
+
+Cell[TextData[{
+ "where the spurions are contained in the ",
+ StyleBox["Spur", "Input"],
+ " Head."
+}], "Text",
+ CellChangeTimes->{{3.852181590108836*^9, 
+  3.8521816120165567`*^9}},ExpressionUUID->"6b64f42c-6954-432a-9be7-\
+45ed2d17334f"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{960, 1027},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"13.0 for Mac OS X ARM (64-bit) (December 2, 2021)",
+StyleDefinitions->FrontEnd`FileName[{$RootDirectory, "Users", "aethomsen", 
+   "Library", "Mathematica", "SystemFiles", "FrontEnd", "StyleSheets"}, 
+  "Custom Headers.nb", CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"ca8ad508-9657-44cd-a070-ac92a233e237"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 162, 3, 52, "Subsection",ExpressionUUID->"4d24ff85-6416-4a06-a032-0e2b5dc4fd2b"],
+Cell[CellGroupData[{
+Cell[767, 29, 162, 3, 45, "Subsubsection",ExpressionUUID->"f378d2ab-5ac1-44ea-bf59-ad3a70f186a4"],
+Cell[CellGroupData[{
+Cell[954, 36, 296, 6, 62, "Input",ExpressionUUID->"24c4096f-5982-43b8-b233-f06ad867a112"],
+Cell[CellGroupData[{
+Cell[1275, 46, 217, 4, 24, "Print",ExpressionUUID->"e1134e84-b97f-4461-a764-fa3fe457b033"],
+Cell[1495, 52, 464, 11, 24, "Print",ExpressionUUID->"413bd69e-af77-4f34-ab07-0dd89f3a1740"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2020, 70, 161, 3, 45, "Subsubsection",ExpressionUUID->"e2e97132-8306-4152-b608-dfe20efd48ab"],
+Cell[2184, 75, 851, 14, 111, "Text",ExpressionUUID->"835cd790-dbd8-4bfa-aaf8-8a6730f299f2"],
+Cell[3038, 91, 273, 4, 42, "Text",ExpressionUUID->"24fbae93-2cb4-438d-917e-bc740b72aa74"],
+Cell[CellGroupData[{
+Cell[3336, 99, 263, 4, 40, "Input",ExpressionUUID->"1c938ee9-f103-472f-b9bb-a9ec467437a9"],
+Cell[3602, 105, 6821, 148, 413, "Output",ExpressionUUID->"f1515dc2-d7f6-4659-bcd1-1cb804fcd76d"]
+}, Open  ]],
+Cell[10438, 256, 479, 9, 65, "Text",ExpressionUUID->"f939f1f7-ec82-4bcb-ac89-9a38844fcc77"],
+Cell[CellGroupData[{
+Cell[10942, 269, 391, 7, 40, "Input",ExpressionUUID->"3451e542-c17c-4bee-935c-23c40811790f"],
+Cell[11336, 278, 5300, 124, 215, "Output",ExpressionUUID->"cb695c76-b11b-4691-865c-2ce52651af49"]
+}, Open  ]],
+Cell[16651, 405, 1504, 31, 180, "Text",ExpressionUUID->"f5b5a5bf-c857-4b64-a0f1-903e8603b674"],
+Cell[18158, 438, 3476, 82, 251, "Input",ExpressionUUID->"a05b29d7-d680-46a9-9b63-d4c2f18ef315"],
+Cell[21637, 522, 523, 10, 65, "Text",ExpressionUUID->"b8965b6b-8763-46e9-b2ed-928f9787baf1"],
+Cell[22163, 534, 415, 12, 32, "Item",ExpressionUUID->"699876a6-3162-4d62-88d9-63d1e17d2b8b"],
+Cell[22581, 548, 978, 18, 95, "Item",ExpressionUUID->"55c7c49b-277a-4c64-b82d-8bac697d3c07"],
+Cell[23562, 568, 339, 8, 32, "Item",ExpressionUUID->"ad5ce2b9-c404-4886-9368-4434ffb1a19a"],
+Cell[23904, 578, 578, 11, 53, "Item",ExpressionUUID->"38298637-4c03-43de-9951-d626ad5583f3"],
+Cell[24485, 591, 813, 18, 95, "Item",ExpressionUUID->"6f939c06-df0b-44a7-8589-37defcd6e7bb"],
+Cell[25301, 611, 540, 10, 53, "Item",ExpressionUUID->"4acf21f8-976f-465e-bcf8-b4a0e114221e"],
+Cell[25844, 623, 424, 9, 32, "Item",ExpressionUUID->"024a9425-2bae-4fb4-88f7-47face68905c"],
+Cell[26271, 634, 245, 6, 42, "Text",ExpressionUUID->"fec7c6db-c4e1-4855-9b82-aa0abecfafb6"],
+Cell[CellGroupData[{
+Cell[26541, 644, 226, 3, 40, "Input",ExpressionUUID->"4260dad6-5e88-4b46-af15-a26ffd332b61"],
+Cell[26770, 649, 3349, 78, 152, "Output",ExpressionUUID->"5df98368-af87-492f-a827-b19e8b05d2ca"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[30168, 733, 167, 3, 45, "Subsubsection",ExpressionUUID->"5293f235-d78a-4572-9937-df002394d825"],
+Cell[30338, 738, 245, 4, 42, "Text",ExpressionUUID->"15417a5c-97be-496d-bf44-5f0973a9328f"],
+Cell[CellGroupData[{
+Cell[30608, 746, 216, 4, 40, "Input",ExpressionUUID->"e6efe531-615e-4088-8000-0fe6ad3f6ddb"],
+Cell[30827, 752, 888, 15, 77, "Output",ExpressionUUID->"cd85c6e9-f930-4883-8bc6-3496678149fa"]
+}, Open  ]],
+Cell[31730, 770, 242, 4, 42, "Text",ExpressionUUID->"71af6aba-a852-4535-9987-638cce93e810"],
+Cell[CellGroupData[{
+Cell[31997, 778, 384, 6, 62, "Input",ExpressionUUID->"c55fa43d-aa54-4d6a-9723-98d21e608b00"],
+Cell[32384, 786, 582, 14, 37, "Output",ExpressionUUID->"ed7518e1-284a-434e-b965-6a4cecc62d7e"],
+Cell[32969, 802, 793, 20, 37, "Output",ExpressionUUID->"5583fdc2-f768-4f7e-a3b9-af3983b3716d"]
+}, Open  ]],
+Cell[33777, 825, 643, 14, 88, "Text",ExpressionUUID->"20001403-04c5-4033-9d44-d16a9bcb0202"],
+Cell[34423, 841, 196, 3, 42, "Text",ExpressionUUID->"c9594621-0551-44d8-8cee-07af5d747086"],
+Cell[CellGroupData[{
+Cell[34644, 848, 247, 3, 83, "Input",ExpressionUUID->"97e51716-fc54-4dd0-ab5b-02b863a17bba"],
+Cell[34894, 853, 353, 6, 34, "Output",ExpressionUUID->"709eed02-35d4-45d2-8cd1-617c8cb0f17d"],
+Cell[35250, 861, 561, 9, 56, "Output",ExpressionUUID->"12337ec3-b496-45b0-b8cf-e9548c6b9725"],
+Cell[35814, 872, 378, 6, 34, "Output",ExpressionUUID->"2e5611c3-22bc-4519-b1db-cf219d8acbd5"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[36241, 884, 261, 4, 45, "Subsubsection",ExpressionUUID->"a751b4b4-7b8c-43bc-a489-91d4f5538e5d"],
+Cell[36505, 890, 509, 11, 88, "Text",ExpressionUUID->"9b03a698-8558-4392-8f59-c1350efb0470"],
+Cell[37017, 903, 509, 9, 88, "Text",ExpressionUUID->"482ecdce-60c6-4967-9b86-818ca3e39de7"],
+Cell[CellGroupData[{
+Cell[37551, 916, 339, 7, 40, "Input",ExpressionUUID->"b9de4177-d670-48be-9430-8c06194e5c90"],
+Cell[37893, 925, 1371, 26, 197, "Output",ExpressionUUID->"91ca92a2-7577-42a5-b103-52669e8a4f1a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[39301, 956, 424, 10, 40, "Input",ExpressionUUID->"80ec6eeb-4312-4e23-919a-482369cffde7"],
+Cell[39728, 968, 1497, 34, 211, "Output",ExpressionUUID->"c568f27f-b02d-47e4-a555-c2f5ef4094bf"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[41262, 1007, 320, 8, 40, "Input",ExpressionUUID->"233caa22-0445-420b-b844-4a92c3764023"],
+Cell[41585, 1017, 10549, 170, 1311, "Output",ExpressionUUID->"00b07368-890e-41c4-85f2-b15687a5cf20"]
+}, Open  ]]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[52183, 1193, 224, 4, 45, "Subsubsection",ExpressionUUID->"09dc94f8-a6b6-4688-8b1b-a1e964e0b49e"],
+Cell[52410, 1199, 649, 13, 88, "Text",ExpressionUUID->"0fe95c29-9834-45c6-b16e-bb2e27e720f7"],
+Cell[CellGroupData[{
+Cell[53084, 1216, 491, 11, 40, "Input",ExpressionUUID->"8520e81a-89e2-4111-be44-3113bbb7d1bc"],
+Cell[53578, 1229, 21837, 570, 773, "Output",ExpressionUUID->"0124839b-90ee-4c20-81eb-2822adbb9a0d"]
+}, Open  ]],
+Cell[75430, 1802, 369, 9, 65, "Text",ExpressionUUID->"c1c1adca-56fb-4e2c-bd66-9326d7d0991e"],
+Cell[CellGroupData[{
+Cell[75824, 1815, 261, 5, 40, "Input",ExpressionUUID->"66f583e1-d6aa-4108-a933-7f165f52fef1"],
+Cell[76088, 1822, 60716, 1696, 407, "Output",ExpressionUUID->"c2ee70b3-6547-4faa-a0e6-d104ed423a32"]
+}, Open  ]],
+Cell[136819, 3521, 251, 6, 42, "Text",ExpressionUUID->"2a9ccb7e-5a27-459d-928e-30208359cfba"],
+Cell[CellGroupData[{
+Cell[137095, 3531, 306, 7, 40, "Input",ExpressionUUID->"097e2bce-1601-43d3-9e16-a99690db7528"],
+Cell[137404, 3540, 9807, 277, 71, "Output",ExpressionUUID->"cec26959-d7ef-4faa-803e-18e24f60dd75"]
+}, Open  ]],
+Cell[147226, 3820, 238, 7, 42, "Text",ExpressionUUID->"6b64f42c-6954-432a-9be7-45ed2d17334f"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

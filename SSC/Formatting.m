@@ -50,7 +50,7 @@ Protect@ String;
 
 Format[Bar@ y_, OpForm]:= OverBar@ y;
 Format[Index[_, d_], OpForm]:= d;
-Format[Operator@y__, OpForm]:= "Operator"@ FormatOperatorIndices@ Operator@ y;
+Format[Operator@y__, OpForm]:= "Operator"@@ FormatOperatorIndices@ Operator@ y;
 
 
 Format[PlusHc@ op_, OpForm]:= Format[#, OpForm]&/@ DisplayForm@ RowBox[{"(", op, " + H.c. ", ")"}]

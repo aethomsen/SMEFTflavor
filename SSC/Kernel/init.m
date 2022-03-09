@@ -26,5 +26,9 @@ If[MemberQ[$Packages,"SSC`"],
 		Print@Style["Loading failed!", RGBColor[.6, .0706, 0.1373]];
 		Abort[]
 	];
-	Print@ Style["Loading successful.", RGBColor[0.3,0.55,0.2]]
+	Print[
+	"by Anders Eller Thomsen, Ajdin Palavri\[CAcute], and Admir Greljo.\n",
+	"Reference: ", Hyperlink["arXiv:2203.XXXXX","https://arxiv.org/abs/2203.XXXXX"],"\n",
+	"Website: ", Hyperlink["https://github.com/aethomsen/SSC","https://github.com/aethomsen/SSC"]
+	];
 ];

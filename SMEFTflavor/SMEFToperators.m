@@ -1,10 +1,10 @@
 (* ::Package:: *)
 
-Package["SSC`"] 
+Package["SMEFTflavor`"] 
 
 
 (* ::Title:: *)
-(*SSC`SMEFToperators*)
+(*SMEFTflavor`SMEFToperators*)
 
 
 (* ::Subtitle:: *)

@@ -1,10 +1,10 @@
 (* ::Package:: *)
 
-Package["SSC`"] 
+Package["SMEFTflavor`"] 
 
 
 (* ::Title:: *)
-(*SSC`*)
+(*SMEFTflavor`*)
 
 
 (* ::Subtitle:: *)
@@ -35,13 +35,10 @@ OptionMessage[opt_, func_, val_] := Message[General::invalidopt, opt, func, val]
 
 
 (*Messages for specific options/functions*)
-OptionMessage[EpsilonExpand, func_, val_] := Message[General::optexpectsval, EpsilonExpand, func, val, "Boolean"];
-OptionMessage[ToMasterIntegrals, func_, val_] := Message[General::optexpectsval, ToMasterIntegrals, func, val, "Boolean"];
 
 
 (*Tests for specific options. Form expected is OptionTest[function, options] *)
-OptionTest[_, ToMasterIntegrals] = BooleanQ;
-OptionTest[_, EpsilonExpand] = BooleanQ;
+OptionTest[__] = True;
 
 Attributes @ OptionsCheck = {HoldFirst};
 OptionsCheck @ func_[___, opts : OptionsPattern[]] :=

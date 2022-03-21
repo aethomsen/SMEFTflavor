@@ -28,7 +28,7 @@ If[MemberQ[$Packages,"SMEFTflavor`"],
 	];
 	Print[
 	"by Anders Eller Thomsen, Ajdin Palavri\[CAcute], and Admir Greljo.\n",
-	"Reference: ", Hyperlink["arXiv:2203.XXXXX","https://arxiv.org/abs/2203.XXXXX"],"\n",
+	"Reference: ", Hyperlink["arXiv:2203.09561","https://arxiv.org/abs/2203.09561"],"\n",
 	"Website: ", Hyperlink["https://github.com/aethomsen/SMEFTflavor","https://github.com/aethomsen/SMEFTflavor"]
 	];
 ];

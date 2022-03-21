@@ -1,7 +1,7 @@
 # SMEFTflavor
 SMEFTflavor is a Mathematica package that allows the user to extract all SMEFT operators (Warsaw basis) under assumptions of flavor symmetries and spurions.
 
-If you use SMEFTflavor, please cite the companion paper [arXiv:2203.XXXXX](https://arxiv.org/abs/2203.XXXXX).
+If you use SMEFTflavor, please cite the companion paper [arXiv:2203.09561](https://arxiv.org/abs/2203.09561).
 
 ## Installation and use
 The package can be downloaded directly from this page. SMEFTflavor can then be run from a Mathematica notebook in the base directory with the following lines:
